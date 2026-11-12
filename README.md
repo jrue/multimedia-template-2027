@@ -838,7 +838,7 @@ Run `npm start`, add the block to `content.md`, and watch the preview.
 
 ### GitHub Actions
 
-`deploy.yml` has `contents: write` permission only so it can commit `content.remote.md` after downloading a linked Google Doc; a push made with the workflow's own token does not trigger another run. It uses the current major versions of `actions/checkout`, `actions/setup-node`, `actions/configure-pages`, `actions/upload-pages-artifact` and `actions/deploy-pages`, runs on Node 24, and enables Pages automatically through `configure-pages` with `enablement: true`. Bump the version numbers in that file when GitHub announces deprecations.
+`deploy.yml` has `contents: write` permission only so it can commit `content.remote.md` after downloading a linked Google Doc; a push made with the workflow's own token does not trigger another run. It uses `actions/checkout@v7`, `actions/setup-node@v7`, `actions/configure-pages@v6`, `actions/upload-pages-artifact@v5` and `actions/deploy-pages@v5`, all of which run on Node 24 (as of November 2026), and it enables Pages automatically through `configure-pages` with `enablement: true`. When GitHub announces the next Node deprecation, bump the version numbers in that file; the Actions log names the actions that need it.
 
 ---
 
