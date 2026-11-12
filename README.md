@@ -4,13 +4,13 @@ This is a website template for publishing a single, long-form multimedia story. 
 
 Students write their story in **one Markdown file (`content.md`)** and include any embedded multimedia, and tweak the look in **one settings file (`settings.toml`)**. Every time students save a commit, GitHub rebuilds the website and publishes it on GitHub Pages. No coding, no software to install.
 
-A more user-friendly option allows students to upload `content.md` to Google Docs, make the document public, and paste in the document URL in their `settings.toml` file. This site will fetch the live page and build the site directly from the Google Doc version. Each time it will saves a `content.remote.md` and uses that instead, including whenver the Google Doc fetch fails. 
+A more user-friendly option allows students to upload `content.md` to Google Docs, make the document public, and paste the document URL into their `settings.toml` file. The build will fetch the live document and build the site directly from the Google Doc version. Each time, it saves a copy as `content.remote.md` and falls back to that whenever the Google Doc fetch fails.
 
-It's recommended beginning students use **Google Docs** to edit the `content.md` file (yes, really), since Google Docs has a special markdown editing mode, and this will prevent mistakes and clearly delineate multimedia embed elements as code blocks. 
+It's recommended that beginning students use **Google Docs** to edit the `content.md` file (yes, really), since Google Docs has a special Markdown editing mode, which prevents mistakes and clearly delineates multimedia embed elements as code blocks.
 
-Students who want a more seemless editing experience can open this project in Github Codespaces and activate the node server with `npm start` and see a live preview of the site as they make tweaks. (More advanced students can also clone this repo locally and do the same thing on their laptops). 
+Students who want a more seamless editing experience can open this project in GitHub Codespaces, start the Node server with `npm start`, and see a live preview of the site as they make tweaks. (More advanced students can also clone this repo locally and do the same thing on their laptops.)
 
-The live website only updates whenver a commit is made. Students can view the process under the `Actions` menu. 
+The live website only updates whenever a commit is made. Students can view the process under the **Actions** tab.
 
 ---
 
@@ -18,19 +18,18 @@ The live website only updates whenver a commit is made. Students can view the pr
 
 1. [How it works](#1-how-it-works)
 2. [Getting started on GitHub](#2-getting-started-on-github)
-3. [Writing in Google Docs](#3-writing-in-google-docs)
-4. [The settings file: settings.toml](#4-the-settings-file-settingstoml)
-5. [The story file: content.md](#5-the-story-file-contentmd)
-6. [Every embed type](#6-every-embed-type)
-7. [Photos and video: sizes and limits](#7-photos-and-video-sizes-and-limits)
-8. [Fonts](#8-fonts)
-9. [Custom styles](#9-custom-styles)
-10. [Previewing on your own computer (Advanced)](#10-previewing-on-your-own-computer-advanced)
-11. [Editing in the browser with GitHub Codespaces](#11-editing-in-the-browser-with-github-codespaces)
-12. [Troubleshooting](#12-troubleshooting)
-13. [For developers: how the template is built](#13-for-developers-how-the-template-is-built)
-14. [Free GitHub for students](#14-free-github-for-students)
-15. [Credits and licenses](#15-credits-and-licenses)
+3. [The settings file: settings.toml](#3-the-settings-file-settingstoml)
+4. [The story file: content.md](#4-the-story-file-contentmd)
+5. [Every embed type](#5-every-embed-type)
+6. [Photos and video: sizes and limits](#6-photos-and-video-sizes-and-limits)
+7. [Fonts](#7-fonts)
+8. [Custom styles](#8-custom-styles)
+9. [Previewing on your own computer (Advanced)](#9-previewing-on-your-own-computer-advanced)
+10. [Editing in the browser with GitHub Codespaces](#10-editing-in-the-browser-with-github-codespaces)
+11. [Troubleshooting](#11-troubleshooting)
+12. [For developers: how the template is built](#12-for-developers-how-the-template-is-built)
+13. [Free GitHub for students](#13-free-github-for-students)
+14. [Credits and licenses](#14-credits-and-licenses)
 
 ---
 
@@ -42,10 +41,10 @@ You only ever touch three things:
 |---|---|---|
 | **content.md** | top of the repository | The story: text and embeds, written in Markdown. |
 | **settings.toml** | top of the repository | Title, tagline, byline, fonts, colors, sizes, opener image. Students can edit this directly. |
-| **assets/** | a folder in this repo | Where to place your photos, videos, timeline and map data files (25MiB max filesize for each individual file) |
+| **assets/** | a folder in this repo | Where to place your photos, videos, timeline and map data files (25 MB maximum size for each file) |
 | **custom.css** | top of the repository | Optional: your own styling tweaks |
 
-When you save (commit) a change on GitHub, a **GitHub Action** builds the website from those three things and publishes it. It takes about one minute. You can watch it work under the **Actions** tab.
+When you save (commit) a change on GitHub, a **GitHub Action** builds the website from those files and publishes it. It takes about one minute. You can watch it work under the **Actions** tab.
 
 The address of your site will be `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/`.
 
@@ -74,7 +73,7 @@ The build tries to switch this on by itself the first time it runs. If your site
 
 Open the **Actions** tab. When the latest run has a green check mark, click it. The web address of your site is shown in the **deploy** box. It is also listed on **Settings > Pages**.
 
-### Step 4.A Edit the story (on Github.com)
+### Step 4.A Edit the story (on GitHub.com)
 
 1. On your repository's main page click **content.md**.
 2. Click the **pencil icon** (Edit this file) near the top right.
@@ -84,11 +83,11 @@ Open the **Actions** tab. When the latest run has a green check mark, click it. 
 
 Do the same with **settings.toml** to change the title, colors or fonts.
 
-### Step 4.B Edit the story (In Google docs)
+### Step 4.B Edit the story (in Google Docs)
 
 1. On your repository's main page click **content.md**.
 2. Click the **download icon** (Download raw file) near the top right of the file. The file `content.md` lands in your Downloads folder.
-3. Go to [drive.google.com](https://drive.google.com) and click **New > File upload**. Choose `content.md`. **Do not** convert it to a standard Google Doc, keep it in the "MD" (Markdown) format. You can edit it just like any other Google Doc, but there will be fewer formatting options available to you.
+3. Go to [drive.google.com](https://drive.google.com) and click **New > File upload**. Choose `content.md`. **Do not** convert it to a standard Google Doc; keep it in the Markdown (.md) format. You can edit it just like any other Google Doc, but there will be fewer formatting options available to you.
 4. In Google Docs click **Share**, set **General access** to **Anyone with the link** (Viewer is enough), and click **Copy link**.
 5. In GitHub open **settings.toml** and paste the link between the quotes on the `content_url` line:
 
@@ -112,7 +111,7 @@ Do the same with **settings.toml** to change the title, colors or fonts.
 
 File names are **case-sensitive**: `Photo.JPG` and `photo.jpg` are different files. Keep names simple: lowercase letters, numbers and dashes.
 
-Size limits: the GitHub web uploader refuses files over **25 MB**, and GitHub refuses any file over **100 MB**. See [section 7](#7-photos-and-video-sizes-and-limits) for how to keep videos small.
+Size limits: the GitHub web uploader refuses files over **25 MB**, and GitHub refuses any file over **100 MB**. See [section 6](#6-photos-and-video-sizes-and-limits) for how to keep videos small.
 
 ---
 
@@ -122,7 +121,7 @@ Every photo, chart, video, timeline or other media element is a **code block**. 
 
 1. Put the cursor on an empty line.
 2. Choose **Insert > Building blocks > Code block** (any language is fine; the template ignores it).
-3. Type the embed's option lines and paste the embed code, exactly as shown in [section 6](#6-every-embed-type).
+3. Type the embed's option lines and paste the embed code, exactly as shown in [section 5](#5-every-embed-type).
 
 Code blocks are the one part of a Google Doc that is never "helpfully" reformatted, which is why the template uses them: curly quotes, auto-capitalization and auto-links do not happen inside them. Even if a quote mark does become curly, the template straightens it.
 
@@ -140,11 +139,11 @@ Code blocks are the one part of a Google Doc that is never "helpfully" reformatt
 - The one exception is a typed image, `![description](https://example.com/photo.jpg)`, which Docs cannot show. The site turns it into an image anyway, with the description as alt text, at the default large size. Add `{.framed}` right after it to give it a class from custom.css. For local photos, use an image embed as usual.
 - Tables work, including a picture inside a cell. They get the Bootstrap classes from `table_classes` in settings.toml.
 
-Things that do not survive the trip: pictures pasted into the Google Doc (upload them to **assets/** instead and use an image embed), colored text, and fonts chosen in Google Docs (fonts come from settings.toml).
+Things that do not survive the trip: colored text, and fonts chosen in Google Docs (fonts come from settings.toml).
 
 ---
 
-## 4. The settings file: settings.toml
+## 3. The settings file: settings.toml
 
 Open `settings.toml` and change the values on the right of each `=`. Keep text inside straight double quotes. Lines starting with `#` are comments. Any setting you delete falls back to a sensible default.
 
@@ -162,7 +161,7 @@ Open `settings.toml` and change the values on the right of each `=`. Keep text i
 | `share_image` | Optional. Image for social media previews. Defaults to the opener image. |
 | `favicon` | Optional. A small square image for the browser tab, e.g. `"favicon.png"`. |
 | `footer` | Small text at the bottom of the page. Markdown links work. |
-| `content_url` | Optional. A Google Docs share link. When set, the story is downloaded from that doc at build time instead of using content.md. See [Link the Google Doc](#or-skip-the-round-trip-link-the-google-doc). |
+| `content_url` | Optional. A Google Docs share link. When set, the story is downloaded from that doc at build time instead of using content.md. See [Step 4.B](#step-4b-edit-the-story-in-google-docs). |
 
 ### [opener]
 
@@ -174,7 +173,7 @@ Open `settings.toml` and change the values on the right of each `=`. Keep text i
 | `screen_color` | Color of the tinted layer between the image and the text, e.g. `"#000000"`. |
 | `screen_opacity` | How strong the tint is: `0` is invisible, `1` hides the image. `0.45` is a good start. |
 | `align` | Where the title sits, one of nine spots: `"top-left"`, `"top-center"`, `"top-right"`, `"middle-left"`, `"middle-center"`, `"middle-right"`, `"bottom-left"`, `"bottom-center"`, `"bottom-right"`. |
-| `title_font` | Font family name for the title (see [Fonts](#8-fonts)). |
+| `title_font` | Font family name for the title (see [Fonts](#7-fonts)). |
 | `title_size` | Size of the title on large screens, e.g. `"5.5rem"`. It shrinks automatically on phones. |
 | `title_weight` | `700` for bold, `400` for regular. |
 | `title_color` | Color of the title, e.g. `"#ffffff"`. |
@@ -217,11 +216,11 @@ Open `settings.toml` and change the values on the right of each `=`. Keep text i
 
 ### [fonts]
 
-Font files in the `fonts/` folder are detected automatically. See [Fonts](#8-fonts).
+Font files in the `fonts/` folder are detected automatically. See [Fonts](#7-fonts).
 
 ---
 
-## 5. The story file: content.md
+## 4. The story file: content.md
 
 ### Plain writing
 
@@ -285,7 +284,7 @@ Rules of thumb:
 | `caption` | Text shown under the embed. Markdown works (`*italics*`, links). |
 | `credit` | Shown after the caption in a lighter color, e.g. `Photo by Jane Doe`. |
 | `id` | A name for this embed so you can link to it (`[see the chart](#my-chart)`) or style it in custom.css (`#my-chart img { ... }`). |
-| `class` | One or more class names, separated by spaces, for styling in custom.css. See [Custom styles](#9-custom-styles). |
+| `class` | One or more class names, separated by spaces, for styling in custom.css. See [Custom styles](#8-custom-styles). |
 | `style` | CSS written straight onto the embed's wrapper, for a one-off tweak: `style: border-top: 2px solid #c00; padding-top: 1rem`. |
 
 ### Sizes
@@ -303,7 +302,7 @@ On phones every size becomes edge to edge, with the text keeping a small margin.
 
 ---
 
-## 6. Every embed type
+## 5. Every embed type
 
 The sample `content.md` contains a working example of each of these. Copy, paste, and change the file names.
 
@@ -356,7 +355,7 @@ The template creates several sizes of each picture automatically. Upload the big
 
 ### Video with controls (`video`)
 
-For short clips you host yourself. For anything longer than a minute or two, upload to YouTube or Vimeo and use their embed code instead (see [section 7](#7-photos-and-video-sizes-and-limits)).
+For short clips you host yourself. For anything longer than a minute or two, upload to YouTube or Vimeo and use their embed code instead (see [section 6](#6-photos-and-video-sizes-and-limits)).
 
 ````
 embed: video
@@ -572,7 +571,7 @@ ffmpeg -i original.mp4 -an -vf scale=1280:-2 -c:v libx264 -crf 23 -g 4 -keyint_m
 
 ---
 
-## 7. Photos and video: sizes and limits
+## 6. Photos and video: sizes and limits
 
 **Photos**
 
@@ -591,7 +590,7 @@ ffmpeg -i original.mp4 -an -vf scale=1280:-2 -c:v libx264 -crf 23 -g 4 -keyint_m
 
 ---
 
-## 8. Fonts
+## 7. Fonts
 
 The template ships with three Google Fonts: **Quattrocento** (headings), **Fanwood Text** (body text) and **Source Sans 3** (captions and other small text). They are stored in the `fonts/` folder and served from your own site, so there is no connection to Google when someone reads your story.
 
@@ -617,7 +616,7 @@ The build warns you if settings.toml names a font that has no files in `fonts/`.
 
 ---
 
-## 9. Custom styles
+## 8. Custom styles
 
 Two options on any embed, plus one file, cover most styling wishes.
 
@@ -668,7 +667,7 @@ Styles cannot reach inside an iframe (a Datawrapper chart or YouTube player is a
 
 ---
 
-## 10. Previewing on your own computer (Advanced)
+## 9. Previewing on your own computer (Advanced)
 
 This is optional. It is handy for instructors and for anyone who wants to see changes instantly instead of waiting for GitHub.
 
@@ -691,7 +690,7 @@ Resized images are cached in `.cache/`. Delete that folder if it gets large or i
 
 ---
 
-## 11. Editing in the browser with GitHub Codespaces
+## 10. Editing in the browser with GitHub Codespaces
 
 A codespace is a free editor that runs in your web browser, with a live preview of your story next to it. You change a word, press save, and the preview updates. Nothing is installed on your computer.
 
@@ -721,11 +720,11 @@ Saving in the codespace only changes your private copy. To update the public web
 
 **When you are done**
 
-Close the browser tab. The codespace pauses by itself after half an hour of inactivity. GitHub gives personal accounts a free monthly allowance (see [Free GitHub for students](#14-free-github-for-students)); to stop a codespace right away or delete one you no longer need, go to [github.com/codespaces](https://github.com/codespaces).
+Close the browser tab. The codespace pauses by itself after half an hour of inactivity. GitHub gives personal accounts a free monthly allowance (see [Free GitHub for students](#13-free-github-for-students)); to stop a codespace right away or delete one you no longer need, go to [github.com/codespaces](https://github.com/codespaces).
 
 ---
 
-## 12. Troubleshooting
+## 11. Troubleshooting
 
 **The Actions run has a red X.** Click the run, then the failed step, and read the last lines. Common causes:
 
@@ -739,7 +738,7 @@ Close the browser tab. The codespace pauses by itself after half an hour of inac
 
 **The background video does not play on my phone.** Phones in low-power mode do not autoplay video. Set a `poster` image so readers see something. Also make sure the clip is small and has no audio track.
 
-**My new font is not used.** The family name in settings.toml must match the file name's family part (see section 8). Check the build log for a "has no files in the fonts/ folder" warning.
+**My new font is not used.** The family name in settings.toml must match the file name's family part (see section 7). Check the build log for a "has no files in the fonts/ folder" warning.
 
 **The site shows an old version.** Wait a minute after the Actions run finishes, then reload with Shift held down (a hard refresh).
 
@@ -751,7 +750,7 @@ Close the browser tab. The codespace pauses by itself after half an hour of inac
 
 ---
 
-## 13. For developers: how the template is built
+## 12. For developers: how the template is built
 
 Everything is plain Node.js with three dependencies: `markdown-it` (Markdown), `smol-toml` (settings) and `sharp` (image resizing). There is no framework and no bundler.
 
@@ -843,7 +842,7 @@ Run `npm start`, add the block to `content.md`, and watch the preview.
 
 ---
 
-## 14. Free GitHub for students
+## 13. Free GitHub for students
 
 Everything this template uses is free on a personal GitHub account: the repository, the automatic builds, the published website, and Codespaces. Here is where the limits are and what happens if you reach them.
 
@@ -870,10 +869,10 @@ If you are a student, GitHub gives you **GitHub Pro** for free, which raises Cod
 
 ---
 
-## 15. Credits and licenses
+## 14. Credits and licenses
 
-- Template Jeremy Sanchez Rue: MIT License (see `LICENSE`).
+- Template by Jeremy Sanchez Rue: MIT License (see `LICENSE`).
 - [Bootstrap](https://getbootstrap.com/) 5.3: MIT License.
 - [TimelineJS](https://timeline.knightlab.com/), [JuxtaposeJS](https://juxtapose.knightlab.com/) and [StoryMapJS](https://storymap.knightlab.com/) by Northwestern University Knight Lab: Mozilla Public License 2.0.
 - [Quattrocento](https://fonts.google.com/specimen/Quattrocento) and [Fanwood Text](https://fonts.google.com/specimen/Fanwood+Text): SIL Open Font License.
-- Sample photos and videos are Unsplash and placeholder stock media for demonstration only. Replace them with your own.
+- Sample photos and videos are Unsplash and other placeholder stock media for demonstration only. Replace them with your own.
