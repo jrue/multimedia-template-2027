@@ -866,7 +866,7 @@ If you are a student, GitHub gives you **GitHub Pro** for free, which raises Cod
 3. Prove you are a student: a school email, a photo of your student ID, or an enrollment document. Approval usually takes a few days but can take longer at the start of a term.
 4. Once approved, Pro turns on automatically. There is nothing to configure in this template.
 
-Instructors can also set up a **GitHub Classroom** for the course at [classroom.github.com](https://classroom.github.com), which adds Codespaces hours for students in that class.
+
 
 ---
 
