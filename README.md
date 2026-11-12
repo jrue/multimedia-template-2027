@@ -25,11 +25,12 @@ The live website only updates whenver a commit is made. Students can view the pr
 7. [Photos and video: sizes and limits](#7-photos-and-video-sizes-and-limits)
 8. [Fonts](#8-fonts)
 9. [Custom styles](#9-custom-styles)
-10. [Previewing on your own computer](#10-previewing-on-your-own-computer)
+10. [Previewing on your own computer (Advanced)](#10-previewing-on-your-own-computer-advanced)
 11. [Editing in the browser with GitHub Codespaces](#11-editing-in-the-browser-with-github-codespaces)
 12. [Troubleshooting](#12-troubleshooting)
 13. [For developers: how the template is built](#13-for-developers-how-the-template-is-built)
-14. [Credits and licenses](#14-credits-and-licenses)
+14. [Free GitHub for students](#14-free-github-for-students)
+15. [Credits and licenses](#15-credits-and-licenses)
 
 ---
 
@@ -720,7 +721,7 @@ Saving in the codespace only changes your private copy. To update the public web
 
 **When you are done**
 
-Close the browser tab. The codespace pauses by itself after half an hour of inactivity. GitHub gives personal accounts a generous free monthly allowance; to stop a codespace right away or delete one you no longer need, go to [github.com/codespaces](https://github.com/codespaces).
+Close the browser tab. The codespace pauses by itself after half an hour of inactivity. GitHub gives personal accounts a free monthly allowance (see [Free GitHub for students](#14-free-github-for-students)); to stop a codespace right away or delete one you no longer need, go to [github.com/codespaces](https://github.com/codespaces).
 
 ---
 
@@ -842,7 +843,34 @@ Run `npm start`, add the block to `content.md`, and watch the preview.
 
 ---
 
-## 14. Credits and licenses
+## 14. Free GitHub for students
+
+Everything this template uses is free on a personal GitHub account: the repository, the automatic builds, the published website, and Codespaces. Here is where the limits are and what happens if you reach them.
+
+**Codespaces on a free account**
+
+- You get **120 core-hours a month**. The smallest machine has 2 cores, so that is **60 hours of active editing**. A stopped codespace uses none of it, and codespaces stop by themselves after 30 minutes of inactivity.
+- You also get **15 GB of storage** a month for the codespace itself. One codespace for this template uses well under 1 GB. Unused codespaces are deleted automatically after 30 days.
+- If you use up the hours, nothing is charged. Your codespace simply will not start until the first of the next month. You can still edit files on GitHub in the browser, and the site still builds and publishes as usual, because those do not count against Codespaces.
+- GitHub never charges a personal account for Codespaces unless you go into your billing settings and set a spending limit above zero yourself. Leave it at zero.
+- Keep an eye on usage at [github.com/settings/billing](https://github.com/settings/billing).
+
+**The automatic builds and the website** have their own generous limits for public repositories (the builds are free, and the site is fine up to 1 GB and 100 GB of traffic a month). A class project will not get near them.
+
+**Get more with the GitHub Student Developer Pack**
+
+If you are a student, GitHub gives you **GitHub Pro** for free, which raises Codespaces to **180 core-hours (90 hours on the 2-core machine) and 20 GB** a month, along with a long list of other free tools.
+
+1. Go to [education.github.com/pack](https://education.github.com/pack) and click **Sign up for Student Developer Pack**.
+2. Sign in with the GitHub account you use for this story. Adding your school email address to the account first speeds things up.
+3. Prove you are a student: a school email, a photo of your student ID, or an enrollment document. Approval usually takes a few days but can take longer at the start of a term.
+4. Once approved, Pro turns on automatically. There is nothing to configure in this template.
+
+Instructors can also set up a **GitHub Classroom** for the course at [classroom.github.com](https://classroom.github.com), which adds Codespaces hours for students in that class.
+
+---
+
+## 15. Credits and licenses
 
 - Template Jeremy Sanchez Rue: MIT License (see `LICENSE`).
 - [Bootstrap](https://getbootstrap.com/) 5.3: MIT License.
