@@ -73,6 +73,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in mauris eu t
 ```
 caption: Example of a Google Map embed
 size: large
+lock_scroll: true
+caption: Scrolling over this map scrolls the page; click the map to zoom and pan it.
 <iframe src="https://www.google.com/maps/d/embed?mid=138qwdERnKXEhwrWuROuhVQ9wc9jvRYs&ehbc=2E312F" width="640" height="480"></iframe>
 ```
 
