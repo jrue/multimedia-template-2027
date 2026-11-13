@@ -306,7 +306,7 @@ On phones every size becomes edge to edge, with the text keeping a small margin.
 
 ## 5. Every embed type
 
-The [demo branch's content.md](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) contains a working example of each of these. Copy, paste, and change the file names.
+The [demo branch's content.md](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) contains a working example of each of these. Copy, paste, and change the file names. Some embeds have a **builder page** that writes the code block for you; the hotspots one is at [tools/hotspots.html](https://jrue.github.io/multimedia-template-2027/tools/hotspots.html).
 
 ### Embed code from another website (`html`)
 
@@ -374,6 +374,76 @@ credit: Video by Jane Doe
 | `autoplay` | `true` makes it play silently in a loop, like a GIF. |
 | `loop`, `muted`, `controls` | `true` or `false`. Controls are on unless `autoplay` is on. |
 
+### Audio (`audio`)
+
+A short audio clip with the browser's own player, for an interview excerpt or ambient sound.
+
+````
+embed: audio
+source: interview.mp3
+title: Jane Doe on the morning of the breakaway
+caption: Recorded at Lake Merritt station.
+credit: Audio by Jane Doe
+````
+
+| Option | What it does |
+|---|---|
+| `source` | An `.mp3` (or `.m4a`) file in `assets/`. Required. |
+| `title` | A line shown above the player. Optional. |
+| `size` | Defaults to `text`. |
+
+### Photo with hotspots (`hotspots`)
+
+A photo with markers on it. Hovering a marker (or tapping it once on a phone) shows a small info window with a title, short text and an optional thumbnail. Clicking it (or tapping again) opens a pop-up with a video, audio clip, photo, embed code or text. Each part is optional.
+
+**Use the builder, not your keyboard.** Marker positions are percentages of the photo's width and height, which nobody wants to work out by hand. Open the builder at [jrue.github.io/multimedia-template-2027/tools/hotspots.html](https://jrue.github.io/multimedia-template-2027/tools/hotspots.html) (your own site has a copy at `/tools/hotspots.html` too). Choose the photo, click to place markers, drag them into position, fill in the details, and copy the finished code block into your story. The photo never leaves your browser, and the builder can reload a code block you made earlier so you can adjust it. If the photo is very large, the builder offers a resized copy to download and use instead.
+
+The code block it produces looks like this:
+
+````
+embed: hotspots
+source: yard.jpg
+alt: The train yard seen from above
+caption: Click a marker to learn more.
+credit: Photo by Jane Doe
+
+---
+x: 34.5
+y: 61.2
+title: Car 1234
+text: The car that rolled away.
+thumbnail: car-thumb.jpg
+video: breakaway.mp4
+poster: breakaway.jpg
+
+---
+x: 72
+y: 28
+title: The control tower
+text: Nobody noticed for eleven minutes.
+
+Longer text can go here. It opens in a pop-up when the marker is clicked.
+````
+
+| Block option | What it does |
+|---|---|
+| `source` | The photo, in `assets/`. Required. |
+| `alt`, `caption`, `credit`, `size`, `id` | As for any embed. |
+| `marker` | A small image file to use as the marker instead of the circle. |
+| `marker_size` | Marker diameter in pixels. Default `28`. |
+| `marker_color`, `marker_border` | Fill and ring colors of the circle. |
+| `numbered` | `true` shows 1, 2, 3 inside the markers. Default off. |
+| `pulse` | `false` turns off the gentle pulse that draws attention to the markers. |
+| `legend` | `true` lists the markers by title under the photo; clicking a name opens that marker. Default off. |
+
+| Marker option | What it does |
+|---|---|
+| `x`, `y` | Position as a percentage of the photo's width and height. Required. |
+| `title`, `text`, `thumbnail` | Contents of the info window. All optional. |
+| `video` (+ `poster`), `audio`, `image` | What the pop-up shows. Or paste embed code, or write text, below the options. |
+| `modal_title` | Heading of the pop-up. Defaults to the marker title. |
+| `marker`, `marker_color`, `marker_border` | Override the look of this one marker. |
+
 ### Pull quote (`pullquote`)
 
 A big quotation lifted out of the story.
@@ -412,8 +482,9 @@ Then anywhere in your text you can also write `[watch the video](#modal:breakawa
 | `title` | Heading inside the pop-up. Optional. |
 | `video` | An `.mp4` file to show. |
 | `poster` | Still image for the video. |
+| `audio` | An `.mp3` file to play instead of a video. |
 | `image` + `alt` | Show a picture instead of a video. |
-| (body) | Instead of `video` or `image`, paste embed code (e.g. a YouTube iframe) below the options. It is loaded only when the pop-up opens and unloaded when it closes. |
+| (body) | Instead of `video`, `audio` or `image`, paste embed code (e.g. a YouTube iframe) below the options, or just write text (Markdown works). Embed code is loaded only when the pop-up opens and unloaded when it closes. |
 | `width` | `large` (default), `xl`, or `fullscreen`. |
 | `autoplay` | `false` to make the viewer press play. |
 
@@ -780,6 +851,8 @@ src/
     scripts.js        Allow-list for <script src> in pasted embed code
     page.js           Opener and the HTML document
     theme.js          settings.toml -> CSS custom properties
+  tools/
+    hotspots.html     Builder page, published at /tools/hotspots.html (placeholders pull in the site's fonts and embed styles)
   theme/
     base.css          Layout and typography (uses the custom properties)
     base.js           Opener behavior
