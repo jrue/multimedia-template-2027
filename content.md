@@ -137,6 +137,50 @@ caption: Drag the handle to compare. Lorem ipsum dolor sit amet, consectetur adi
 credit: Photos by Firstname Lastname
 ```
 
+```
+embed: hotspots
+source: scrolly/05.jpg
+alt: A desk seen from above with a laptop, coffee, notebook and tablet
+caption: Hover over a marker (or tap it on a phone) for a quick note, then click for more. Made with the hotspots builder.
+credit: Photo by Firstname Lastname
+numbered: true
+legend: true
+
+---
+x: 23
+y: 36
+title: Lorem ipsum coffee
+text: Consectetur adipiscing elit, sed do eiusmod tempor.
+thumbnail: scrolly/03.jpg
+video: breakaway-clip.mp4
+poster: scrolly/07.jpg
+
+---
+x: 54
+y: 53
+title: The notebook
+text: Ut enim ad minim veniam, quis nostrud exercitation.
+audio: breakaway-audio.mp3
+
+---
+x: 80
+y: 62
+title: The tablet
+text: Duis aute irure dolor in reprehenderit.
+
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This pop-up holds plain text, which can include *Markdown* and [links](https://example.com).
+```
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+```
+embed: audio
+source: breakaway-audio.mp3
+title: Lorem ipsum, as told to a reporter
+caption: A short audio clip with the browser's own player.
+credit: Audio by Firstname Lastname
+```
+
 ## Integer vestibulum sapien
 
 Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit. You can also open a pop-up from a plain link, like this one: [watch the clip](#modal:breakaway).
