@@ -41,6 +41,11 @@ export const DEFAULTS = {
     height: '100vh',
     scroll_indicator: true,
     scroll_indicator_color: '',
+    audio: false,
+    audio_position: 'bottom-center',
+    audio_label: 'Click for audio',
+    audio_label_on: 'Mute',
+    fade_sound_after_scroll: true,
   },
   text: {
     font: '',

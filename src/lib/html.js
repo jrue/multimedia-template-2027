@@ -14,7 +14,17 @@ export function buildCaption(ctx, caption, credit) {
   return parts.join(' ');
 }
 
-// wrap(ctx, { size, caption, credit, id, embedName, classes, style, tag }, innerHtml)
+// A floated embed stays inside the text run (so paragraphs wrap around it)
+// instead of being pulled out between paragraphs. wrap() marks it with this
+// prefix and the build strips it again.
+export const FLOAT_MARK = '<!--story-float-->';
+
+export function parseFloat_(value) {
+  const v = String(value || '').toLowerCase().trim();
+  return v === 'left' || v === 'right' ? v : '';
+}
+
+// wrap(ctx, { size, caption, credit, id, embedName, classes, style, tag, float }, innerHtml)
 export function wrap(ctx, opts, inner) {
   const size = parseSize(opts.size, opts.defaultSize || 'large');
   if (size.invalid) {
@@ -22,6 +32,8 @@ export function wrap(ctx, opts, inner) {
   }
   const classes = ['story-embed', `story-embed--${size.kind}`];
   if (opts.embedName) classes.push(`story-embed--${opts.embedName}`);
+  const side = parseFloat_(opts.float);
+  if (side) classes.push('story-embed--float', `story-embed--float-${side}`);
   if (opts.classes) classes.push(opts.classes);
 
   const style = [];
@@ -38,6 +50,7 @@ export function wrap(ctx, opts, inner) {
   const caption = buildCaption(ctx, opts.caption, opts.credit);
 
   return (
+    (side ? FLOAT_MARK : '') +
     `<${tag} ${attrs.join(' ')}>\n` +
     `<div class="story-embed__media">${inner}</div>` +
     (caption ? `\n<${captionTag} class="story-embed__caption">${caption}</${captionTag}>` : '') +

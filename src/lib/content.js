@@ -34,11 +34,39 @@ export function createMarkdown(ctx) {
     return ctx.renderEmbed({ embed: 'image', source: src, alt, caption: t.attrGet('title') || '' }, '');
   };
 
+  // A line like {.table-large .table-striped} right after a table sets its
+  // width (table-text, table-large, table-full, table-130) and adds classes.
+  md.core.ruler.push('table_attributes', (state) => {
+    const toks = state.tokens;
+    for (let i = 0; i < toks.length - 3; i++) {
+      if (toks[i].type !== 'table_close' || toks[i + 1].type !== 'paragraph_open' || toks[i + 2].type !== 'inline' || toks[i + 3].type !== 'paragraph_close') continue;
+      const m = toks[i + 2].content.trim().match(/^\{([^}]*)\}$/);
+      if (!m) continue;
+      let open = i;
+      while (open >= 0 && toks[open].type !== 'table_open') open--;
+      if (open < 0) continue;
+      const meta = { size: '', scale: 0, classes: [] };
+      for (const name of m[1].split(/\s+/).map((c) => c.replace(/^\./, '')).filter(Boolean)) {
+        const size = name.match(/^table-(text|large|full|(\d+))$/);
+        if (size) {
+          if (size[2]) { meta.size = 'custom'; meta.scale = Number(size[2]) / 100; } else meta.size = size[1];
+        } else meta.classes.push(name.replace(/[^\w-]/g, ''));
+      }
+      toks[open].meta = meta;
+      toks.splice(i + 1, 3);
+    }
+  });
+
   // Tables get the classes from settings.toml ([text] table_classes) and a
   // wrapper that scrolls sideways on narrow screens.
-  md.renderer.rules.table_open = () => {
-    const classes = String(ctx.settings.text.table_classes ?? 'table table-bordered').trim();
-    return `<div class="table-responsive"><table${classes ? ` class="${classes}"` : ''}>`;
+  md.renderer.rules.table_open = (tokens, idx) => {
+    const meta = tokens[idx].meta || {};
+    const classes = [String(ctx.settings.text.table_classes ?? 'table table-bordered').trim(), ...(meta.classes || [])].filter(Boolean).join(' ');
+    const wrapClasses = ['table-responsive'];
+    let style = '';
+    if (meta.size && meta.size !== 'text') wrapClasses.push(`table-size--${meta.size}`);
+    if (meta.size === 'custom') style = ` style="--table-scale:${meta.scale}"`;
+    return `<div class="${wrapClasses.join(' ')}"${style}><table${classes ? ` class="${classes}"` : ''}>`;
   };
   md.renderer.rules.table_close = () => '</table></div>';
 
