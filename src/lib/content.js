@@ -38,22 +38,41 @@ export function createMarkdown(ctx) {
   // width (table-text, table-large, table-full, table-130) and adds classes.
   md.core.ruler.push('table_attributes', (state) => {
     const toks = state.tokens;
-    for (let i = 0; i < toks.length - 3; i++) {
-      if (toks[i].type !== 'table_close' || toks[i + 1].type !== 'paragraph_open' || toks[i + 2].type !== 'inline' || toks[i + 3].type !== 'paragraph_close') continue;
-      const m = toks[i + 2].content.trim().match(/^\{([^}]*)\}$/);
-      if (!m) continue;
-      let open = i;
-      while (open >= 0 && toks[open].type !== 'table_open') open--;
-      if (open < 0) continue;
+    const ATTR = /^\{([^}]*)\}$/;
+    const parse = (text) => {
       const meta = { size: '', scale: 0, classes: [] };
-      for (const name of m[1].split(/\s+/).map((c) => c.replace(/^\./, '')).filter(Boolean)) {
+      for (const name of text.split(/\s+/).map((c) => c.replace(/^\./, '')).filter(Boolean)) {
         const size = name.match(/^table-(text|large|full|(\d+))$/);
         if (size) {
           if (size[2]) { meta.size = 'custom'; meta.scale = Number(size[2]) / 100; } else meta.size = size[1];
         } else meta.classes.push(name.replace(/[^\w-]/g, ''));
       }
-      toks[open].meta = meta;
-      toks.splice(i + 1, 3);
+      return meta;
+    };
+    for (let i = 0; i < toks.length; i++) {
+      if (toks[i].type !== 'table_close') continue;
+      let open = i;
+      while (open >= 0 && toks[open].type !== 'table_open') open--;
+      if (open < 0) continue;
+      // Case 1: a paragraph "{...}" after a blank line.
+      if (toks[i + 1]?.type === 'paragraph_open' && toks[i + 2]?.type === 'inline' && toks[i + 3]?.type === 'paragraph_close') {
+        const m = toks[i + 2].content.trim().match(ATTR);
+        if (m) { toks[open].meta = parse(m[1]); toks.splice(i + 1, 3); continue; }
+      }
+      // Case 2: "{...}" typed directly under the table, which Markdown reads
+      // as one more row (first cell holds the text, the rest are empty).
+      let trClose = i - 1;
+      while (trClose > open && toks[trClose].type !== 'tr_close') trClose--;
+      if (trClose <= open) continue;
+      let trOpen = trClose;
+      while (trOpen > open && toks[trOpen].type !== 'tr_open') trOpen--;
+      const cells = toks.slice(trOpen, trClose).filter((t) => t.type === 'inline').map((t) => t.content.trim());
+      const m = cells[0]?.match(ATTR);
+      if (m && cells.slice(1).every((c) => c === '')) {
+        toks[open].meta = parse(m[1]);
+        toks.splice(trOpen, trClose - trOpen + 1);
+        i = trOpen;
+      }
     }
   });
 
