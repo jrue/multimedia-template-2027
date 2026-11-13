@@ -4,7 +4,7 @@
 // button (label:) and/or a link in the text: [Watch](#modal:your-id)
 //
 // Options: id (required for links), label (button text; leave out for no button),
-//          title, video, poster, image, alt, width (default | large | xl | fullscreen),
+//          title, video, poster, audio, image, alt, width (default | large | xl | fullscreen),
 //          autoplay (default: true for video), aspect (e.g. 16x9, 4x3; detected automatically)
 // Body: optional HTML (an iframe, for example)
 import { escapeHtml, toBool, slugify, straightQuotes } from '../../lib/util.js';
@@ -30,12 +30,17 @@ export default {
       // Keep the video inside the pop-up: a fixed-aspect box sized from the
       // file itself (via ffprobe when available), or 16x9.
       content = aspectWrap(video, o.aspect || videoAspect(ctx, o.video) || '16x9');
+    } else if (o.audio) {
+      content = `<div class="story-modal__text"><audio controls preload="metadata" data-autoplay="${toBool(o.autoplay, true)}"><source src="${escapeHtml(ctx.assetUrl(o.audio))}"></audio></div>`;
     } else if (o.image) {
       content = await imageTag(ctx, o.image, { alt: o.alt || '', sizes: '(max-width: 991px) 100vw, 1100px', loading: 'lazy' });
+    } else if (body.trim() && !body.trim().startsWith('<')) {
+      // Plain text (Markdown) inside the pop-up.
+      content = `<div class="story-modal__text">${ctx.renderMarkdown(body)}</div>`;
     } else if (body.trim()) {
       content = aspectWrap(deferIframes(filterScripts(straightQuotes(body), ctx)), o.aspect || (/<iframe/i.test(body) ? '16x9' : ''));
     } else {
-      return errorBox('A modal needs a "video:", "image:", or embed code below the options.');
+      return errorBox('A modal needs a "video:", "audio:", "image:", embed code, or text below the options.');
     }
 
     const width = WIDTHS[String(o.width || 'large').toLowerCase()] ?? 'modal-lg';

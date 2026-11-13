@@ -12,3 +12,7 @@
 .story-modal .modal-body > video,
 .story-modal .modal-body > img { display: block; width: 100%; height: auto; max-height: 80vh; object-fit: contain; background: #000; }
 .story-modal .modal-dialog-centered { min-height: calc(100% - 2rem); }
+.story-modal .story-modal__text { padding: 1.25rem; font-family: var(--font-body); font-size: 1.1rem; line-height: 1.6; }
+.story-modal .story-modal__text > :last-child { margin-bottom: 0; }
+.story-modal .story-modal__text audio { display: block; width: 100%; }
+.story-modal .story-modal__text a { color: #9cf; }

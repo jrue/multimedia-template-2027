@@ -16,7 +16,7 @@ import { errorBox, applyCustomAttrs } from './lib/html.js';
 import { cleanAssetPath } from './lib/images.js';
 import { renderOpener, renderPage } from './lib/page.js';
 import { cssVars } from './lib/theme.js';
-import { ensureDir, copyDirIfNewer, readIfExists } from './lib/util.js';
+import { ensureDir, copyDirIfNewer, copyIfNewer, readIfExists } from './lib/util.js';
 import { loadContent } from './lib/remote.js';
 
 export const PROJECT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -157,6 +157,26 @@ export async function build({ root = PROJECT_ROOT, dev = false, clean = false } 
   const customCss = path.join(root, 'custom.css');
   const hasCustomCss = fs.existsSync(customCss);
   if (hasCustomCss) fs.copyFileSync(customCss, path.join(outDir, 'custom.css'));
+
+  // Builder pages in src/tools/ are published at /tools/. Placeholders let
+  // them share the site's fonts, variables and embed styles.
+  const toolsDir = path.join(root, 'src', 'tools');
+  if (fs.existsSync(toolsDir)) {
+    const siteCss = [fonts.css, cssVars(ctx)].join('\n').replace(/url\("fonts\//g, 'url("../fonts/');
+    ensureDir(path.join(outDir, 'tools'));
+    for (const file of fs.readdirSync(toolsDir)) {
+      const from = path.join(toolsDir, file);
+      if (!fs.statSync(from).isFile()) continue;
+      if (file.endsWith('.html')) {
+        let page = fs.readFileSync(from, 'utf8');
+        page = page.replace('<!-- @site-css -->', `<style>${siteCss}</style>`);
+        page = page.replace(/<!-- @embed-style (\w+) -->/g, (m, name) => `<style>${embeds.get(name)?.styleCss || ''}</style>`);
+        fs.writeFileSync(path.join(outDir, 'tools', file), page);
+      } else {
+        copyIfNewer(from, path.join(outDir, 'tools', file));
+      }
+    }
+  }
 
   // 4. The page
   const html = renderPage(ctx, { openerHtml, bodyHtml, vendorCss, vendorJs, customCss: hasCustomCss });

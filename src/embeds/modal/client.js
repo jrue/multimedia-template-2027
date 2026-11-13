@@ -1,6 +1,6 @@
 // Modal: start media on open, stop it on close.
 document.querySelectorAll('[data-embed="modal"]').forEach((modal) => {
-  const video = modal.querySelector('video');
+  const video = modal.querySelector('video, audio');
   const iframes = modal.querySelectorAll('iframe[data-src]');
 
   modal.addEventListener('shown.bs.modal', () => {
