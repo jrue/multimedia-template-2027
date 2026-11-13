@@ -431,7 +431,7 @@ Longer text can go here. It opens in a pop-up when the marker is clicked.
 | `alt`, `caption`, `credit`, `size`, `id` | As for any embed. |
 | `marker` | A small image file to use as the marker instead of the circle. |
 | `marker_size` | Marker diameter in pixels. Default `28`. |
-| `marker_color`, `marker_border` | Fill and ring colors of the circle. |
+| `marker_color`, `marker_opacity`, `marker_border` | Fill color (hex, default white), fill opacity (0 to 1, default `0.35`) and ring color (hex, default white) of the circle. |
 | `numbered` | `true` shows 1, 2, 3 inside the markers. Default off. |
 | `pulse` | `false` turns off the gentle pulse that draws attention to the markers. |
 | `legend` | `true` lists the markers by title under the photo; clicking a name opens that marker. Default off. |
@@ -442,7 +442,7 @@ Longer text can go here. It opens in a pop-up when the marker is clicked.
 | `title`, `text`, `thumbnail` | Contents of the info window. All optional. |
 | `video` (+ `poster`), `audio`, `image` | What the pop-up shows. Or paste embed code, or write text, below the options. |
 | `modal_title` | Heading of the pop-up. Defaults to the marker title. |
-| `marker`, `marker_color`, `marker_border` | Override the look of this one marker. |
+| `marker`, `marker_color`, `marker_opacity`, `marker_border` | Override the look of this one marker. |
 
 ### Pull quote (`pullquote`)
 

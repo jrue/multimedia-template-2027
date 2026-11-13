@@ -6,8 +6,9 @@
 //
 // Block options:  source (required), alt, caption, credit, size, id,
 //                 marker (custom marker image for all markers),
-//                 marker_size (px, default 28), marker_color (fill),
-//                 marker_border (ring color), numbered (true/false),
+//                 marker_size (px, default 28), marker_color (fill, hex),
+//                 marker_opacity (0 to 1, default 0.35), marker_border (ring
+//                 color, hex), numbered (true/false),
 //                 pulse (true/false, default true), legend (true/false)
 // Each marker (separated by --- lines):
 //                 x, y (percent of the picture's width and height),
@@ -17,7 +18,16 @@
 //                 modal_title, width (large | xl | fullscreen)
 import { splitSteps } from '../../lib/blocks.js';
 import { imageTag, imageData } from '../../lib/images.js';
-import { escapeHtml, toBool, toNumber, slugify } from '../../lib/util.js';
+import { escapeHtml, toBool, toNumber, slugify, hexToRgba } from '../../lib/util.js';
+
+// Fill color for a marker: a hex color plus an opacity (default 0.35), or any
+// CSS color passed through as is.
+function fillColor(color, opacity) {
+  const c = String(color || '').trim();
+  const o = toNumber(opacity, 0.35);
+  if (!c) return opacity !== undefined && opacity !== '' ? hexToRgba('#ffffff', o) : '';
+  return /^#?[0-9a-f]{3}([0-9a-f]{3})?$/i.test(c) ? hexToRgba(c.startsWith('#') ? c : '#' + c, o) : c.replace(/[;"<>]/g, '');
+}
 import { wrap, errorBox, sizesAttr } from '../../lib/html.js';
 
 export default {
@@ -39,7 +49,8 @@ export default {
     const legend = toBool(o.legend, false);
     const style = [];
     if (o.marker_size) style.push(`--hotspot-size:${toNumber(o.marker_size, 28)}px`);
-    if (o.marker_color) style.push(`--hotspot-color:${o.marker_color.replace(/[;"<>]/g, '')}`);
+    const fill = fillColor(o.marker_color, o.marker_opacity);
+    if (fill) style.push(`--hotspot-color:${fill}`);
     if (o.marker_border) style.push(`--hotspot-border:${o.marker_border.replace(/[;"<>]/g, '')}`);
 
     const img = await imageTag(ctx, source, { alt: o.alt || '', sizes: sizesAttr(ctx, o.size) });
@@ -94,7 +105,8 @@ export default {
         markerInner = `<span class="hotspot__marker">${numbered ? n : ''}</span>`;
       }
       const mstyle = [`left:${x}%`, `top:${y}%`];
-      if (m.marker_color) mstyle.push(`--hotspot-color:${m.marker_color.replace(/[;"<>]/g, '')}`);
+      const mfill = fillColor(m.marker_color, m.marker_opacity !== undefined ? m.marker_opacity : o.marker_opacity);
+      if (m.marker_color || m.marker_opacity !== undefined) mstyle.push(`--hotspot-color:${mfill}`);
       if (m.marker_border) mstyle.push(`--hotspot-border:${m.marker_border.replace(/[;"<>]/g, '')}`);
       buttons.push(
         `<button type="button" class="hotspot${pulse ? ' hotspot--pulse' : ''}" style="${mstyle.join(';')}" aria-label="${escapeHtml(label)}"` +
