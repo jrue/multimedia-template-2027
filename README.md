@@ -343,6 +343,7 @@ caption: Interview with the station manager.
 | Option | What it does |
 |---|---|
 | `resize` | By default a pasted iframe is stretched to the embed's width, keeping its proportions. `resize: false` (or `resize: no`) keeps the exact width and height from the pasted code instead. |
+| `lock_scroll` | `true` makes the frame ignore the mouse until the reader clicks it, so scrolling the page over a map or chart no longer zooms or pans the map instead. A "Click to interact" hint appears on hover; moving the mouse away locks it again. Recommended for Google Maps. |
 | `aspect` | Shape of the box the embed scales inside: `16x9`, `4x3`, `1x1`, `21x9` or any `WxH` like `3x2`. You rarely need it: YouTube and Vimeo get `16x9`, and an iframe with `width="640" height="480"` attributes (Google My Maps, Google Forms) keeps those proportions automatically. Use `aspect: none` to leave the embed code exactly as pasted. |
 
 When pasting from Datawrapper choose **Embed with responsive iframe**. From Flourish, use the embed code that includes a `<script>` tag.

@@ -6,7 +6,9 @@
 // Options: size, caption, credit, id,
 //          aspect (16x9, 4x3, 1x1, 21x9 or any "WxH"; detected from the iframe's
 //          width/height attributes when not given; "none" leaves the code alone),
-//          resize (default true; "false" or "no" keeps the pasted width and height)
+//          resize (default true; "false" or "no" keeps the pasted width and height),
+//          lock_scroll (true: the frame ignores the mouse until clicked, so
+//          scrolling over a map scrolls the page instead of the map)
 import { straightQuotes, toBool } from '../../lib/util.js';
 import { filterScripts } from '../../lib/scripts.js';
 import { wrap, errorBox } from '../../lib/html.js';
@@ -48,6 +50,9 @@ export default {
     const resize = toBool(o.resize, true);
     const aspect = resize ? o.aspect || (NEEDS_RATIO.test(html) ? '16x9' : detectAspect(html)) : '';
     html = aspectWrap(html, aspect);
-    return wrap(ctx, { size: o.size, caption: o.caption, credit: o.credit, id: o.id, embedName: 'html', classes: resize ? '' : 'story-embed--noresize' }, html);
+    const lock = toBool(o.lock_scroll, false) || /^lock$/i.test(o.scroll || '');
+    if (lock) html += `<button type="button" class="story-lock__hint" aria-label="Click to interact with this embed">Click to interact</button>`;
+    const classes = [resize ? '' : 'story-embed--noresize', lock ? 'story-embed--lock' : ''].filter(Boolean).join(' ');
+    return wrap(ctx, { size: o.size, caption: o.caption, credit: o.credit, id: o.id, embedName: 'html', classes }, html);
   },
 };
