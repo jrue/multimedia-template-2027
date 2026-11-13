@@ -1,0 +1,61 @@
+{
+  "storymap": {
+    "language": "en",
+    "map_type": "osm:standard",
+    "map_as_image": false,
+    "zoomify": false,
+    "call_to_action": true,
+    "call_to_action_text": "Begin the tour",
+    "slides": [
+      {
+        "type": "overview",
+        "text": {
+          "headline": "Lorem Ipsum Around the Bay",
+          "text": "<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Use the arrows to move between stops.</p>"
+        },
+        "media": {
+          "url": "assets/scrolly/01.jpg",
+          "caption": "Lorem ipsum dolor sit amet.",
+          "credit": "Photo: Firstname Lastname"
+        },
+        "location": { "lat": 37.78, "lon": -122.3, "zoom": 10 }
+      },
+      {
+        "location": { "lat": 37.8044, "lon": -122.2712, "zoom": 14, "line": true },
+        "text": {
+          "headline": "Ut enim ad minim veniam",
+          "text": "<p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+        },
+        "media": {
+          "url": "assets/scrolly/03.jpg",
+          "caption": "Duis aute irure dolor.",
+          "credit": "Photo: Firstname Lastname"
+        }
+      },
+      {
+        "location": { "lat": 37.8716, "lon": -122.2727, "zoom": 14, "line": true },
+        "text": {
+          "headline": "Excepteur sint occaecat",
+          "text": "<p>Cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+        },
+        "media": {
+          "url": "assets/scrolly/06.jpg",
+          "caption": "Sed ut perspiciatis.",
+          "credit": "Photo: Firstname Lastname"
+        }
+      },
+      {
+        "location": { "lat": 37.7897, "lon": -122.4011, "zoom": 14, "line": true },
+        "text": {
+          "headline": "Nemo enim ipsam voluptatem",
+          "text": "<p>Quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</p>"
+        },
+        "media": {
+          "url": "assets/scrolly/07.jpg",
+          "caption": "Neque porro quisquam.",
+          "credit": "Photo: Firstname Lastname"
+        }
+      }
+    ]
+  }
+}

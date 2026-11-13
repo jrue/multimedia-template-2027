@@ -17,12 +17,12 @@
 # set this, it will default to the content.md file on Github. The Doc must
 # be public "Anyone with the link". To rebuild site, Actions > "Run workflow"
 content_url = ""
-title = "Your Story Title"
-tagline = "A sentence or two that sets up the story and makes the reader want to scroll."
-byline = "By Your Name"
-date = ""
+title = "Multimedia Template 2027"
+tagline = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum sapien non laoreet tincidunt, lectus mi fermentum metus, at congue ante arcu nec urna."
+byline = "By Firstname Lastname, Firstname Lastname"
+date = "November 4, 2026"
 # Short summary used by search engines and social media previews.
-description = ""
+description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
 language = "en"
 # Optional. The full address where the story will live, used only for
 # social sharing previews, e.g. "https://username.github.io/my-story"
@@ -32,13 +32,13 @@ share_image = ""
 # Optional. A small square image shown in the browser tab.
 favicon = ""
 # Small text at the very bottom of the page. Markdown links work here.
-footer = ""
+footer = "Produced for the UC Berkeley School of Journalism."
 
 [opener]
 # The full-screen image or video behind the title. Use a .jpg/.png for an
 # image or an .mp4 for a short, silent, looping video. Leave it empty for a
 # solid block of screen_color.
-background = ""
+background = "hero.jpg"
 # background = "hero.jpg"
 # background = "hero-loop.mp4"
 # Still image shown while a background video loads (strongly recommended for video).
