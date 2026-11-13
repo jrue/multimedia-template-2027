@@ -94,11 +94,12 @@
           <div class="col-12"><label class="form-label">Alt text (describe the photo)</label><input class="form-control form-control-sm" data-field="alt"></div>
           <div class="col-12"><label class="form-label">Caption</label><input class="form-control form-control-sm" data-field="caption"></div>
           <div class="col-12"><label class="form-label">Credit</label><input class="form-control form-control-sm" data-field="credit"></div>
-          <div class="col-6"><label class="form-label">Size</label><select class="form-select form-select-sm" data-field="size"><option value="">large (default)</option><option value="full">full</option><option value="text">text</option></select></div>
+          <div class="col-12"><label class="form-label">Size (for this whole embed)</label><select class="form-select form-select-sm" data-field="size"><option value="">large (default)</option><option value="full">full</option><option value="text">text</option></select></div>
           <div class="col-6"><label class="form-label">Marker size (px)</label><input class="form-control form-control-sm" type="number" min="12" max="80" data-field="marker_size" placeholder="28"></div>
-          <div class="col-6"><label class="form-label">Marker fill</label><input class="form-control form-control-sm" data-field="marker_color" placeholder="rgba(255,255,255,0.35)"></div>
-          <div class="col-6"><label class="form-label">Marker ring</label><input class="form-control form-control-sm" data-field="marker_border" placeholder="#ffffff"></div>
-          <div class="col-12"><label class="form-label">Custom marker image (optional, in assets)</label><input class="form-control form-control-sm" data-field="marker" placeholder="pin.png"></div>
+          <div class="col-6"><label class="form-label">Marker fill opacity (0 to 1)</label><input class="form-control form-control-sm" type="number" step="0.05" min="0" max="1" data-field="marker_opacity" placeholder="0.35"></div>
+          <div class="col-6"><label class="form-label">Marker fill color</label><input class="form-control form-control-color form-control-sm w-100" type="color" data-field="marker_color" value="#ffffff"></div>
+          <div class="col-6"><label class="form-label">Marker ring color</label><input class="form-control form-control-color form-control-sm w-100" type="color" data-field="marker_border" value="#ffffff"></div>
+          <div class="col-12"><label class="form-label">Custom image for all markers (optional, put in assets folder)</label><input class="form-control form-control-sm" data-field="marker" placeholder="pin.png"></div>
           <div class="col-12 d-flex gap-3 flex-wrap mt-1">
             <label class="form-check-label"><input class="form-check-input me-1" type="checkbox" data-field="numbered"> Numbered markers</label>
             <label class="form-check-label"><input class="form-check-input me-1" type="checkbox" data-field="pulse" checked> Pulse animation</label>
@@ -116,7 +117,7 @@
             <div class="col-6"><label class="form-label">Y (%)</label><input class="form-control form-control-sm" type="number" step="0.1" min="0" max="100" data-mfield="y"></div>
             <div class="col-12"><label class="form-label">Title</label><input class="form-control form-control-sm" data-mfield="title"></div>
             <div class="col-12"><label class="form-label">Short text (info window)</label><input class="form-control form-control-sm" data-mfield="text"></div>
-            <div class="col-12"><label class="form-label">Thumbnail file (optional, in assets)</label><input class="form-control form-control-sm" data-mfield="thumbnail" placeholder="thumb.jpg"></div>
+            <div class="col-12"><label class="form-label">Thumbnail image on hover (optional, put in assets folder)</label><input class="form-control form-control-sm" data-mfield="thumbnail" placeholder="thumb.jpg"></div>
             <div class="col-12"><label class="form-label">Custom marker for this spot (optional)</label><input class="form-control form-control-sm" data-mfield="marker" placeholder="pin-red.png"></div>
             <div class="col-12"><label class="form-label">On click, open…</label>
               <select class="form-select form-select-sm" data-mfield="detailType">
@@ -150,7 +151,13 @@
 (function () {
   'use strict';
   const STORE = 'hotspots-builder';
-  const DEFAULTS = { source: '', alt: '', caption: '', credit: '', size: '', marker_size: '', marker_color: '', marker_border: '', marker: '', numbered: false, pulse: true, legend: false, markers: [] };
+  const DEFAULTS = { source: '', alt: '', caption: '', credit: '', size: '', marker_size: '', marker_color: '#ffffff', marker_opacity: '', marker_border: '#ffffff', marker: '', numbered: false, pulse: true, legend: false, markers: [] };
+  function hexToRgba(hex, alpha) {
+    const m = String(hex).match(/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i);
+    if (!m) return hex;
+    let h = m[1]; if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+    return 'rgba(' + parseInt(h.slice(0, 2), 16) + ',' + parseInt(h.slice(2, 4), 16) + ',' + parseInt(h.slice(4, 6), 16) + ',' + alpha + ')';
+  }
   let state = JSON.parse(JSON.stringify(DEFAULTS));
   let imageUrl = '';
   let selected = -1;
@@ -251,7 +258,7 @@
     stage.querySelectorAll('.hotspot').forEach((b) => b.remove());
     stage.style.cssText = '';
     if (state.marker_size) stage.style.setProperty('--hotspot-size', state.marker_size + 'px');
-    if (state.marker_color) stage.style.setProperty('--hotspot-color', state.marker_color);
+    stage.style.setProperty('--hotspot-color', hexToRgba(state.marker_color || '#ffffff', state.marker_opacity === '' ? 0.35 : +state.marker_opacity));
     if (state.marker_border) stage.style.setProperty('--hotspot-border', state.marker_border);
     state.markers.forEach((m, i) => {
       const b = document.createElement('button');
@@ -353,7 +360,7 @@
   // ---------- code block out / in
   function line(k, v) { return v !== '' && v !== undefined && v !== null && v !== false ? k + ': ' + String(v).replace(/\s*\n\s*/g, ' ') : null; }
   function toBlock(s) {
-    const head = ['embed: hotspots', line('source', s.source || 'photo.jpg'), line('alt', s.alt), line('caption', s.caption), line('credit', s.credit), line('size', s.size), line('marker_size', s.marker_size), line('marker_color', s.marker_color), line('marker_border', s.marker_border), line('marker', s.marker), s.numbered ? 'numbered: true' : null, s.pulse ? null : 'pulse: false', s.legend ? 'legend: true' : null].filter(Boolean);
+    const head = ['embed: hotspots', line('source', s.source || 'photo.jpg'), line('alt', s.alt), line('caption', s.caption), line('credit', s.credit), line('size', s.size), line('marker_size', s.marker_size), line('marker_color', s.marker_color.toLowerCase() === '#ffffff' ? '' : s.marker_color), line('marker_opacity', s.marker_opacity), line('marker_border', s.marker_border.toLowerCase() === '#ffffff' ? '' : s.marker_border), line('marker', s.marker), s.numbered ? 'numbered: true' : null, s.pulse ? null : 'pulse: false', s.legend ? 'legend: true' : null].filter(Boolean);
     const blocks = s.markers.map((m) => {
       const l = [line('x', m.x), line('y', m.y), line('title', m.title), line('text', m.text), line('thumbnail', m.thumbnail), line('marker', m.marker), line('modal_title', m.modal_title)];
       if (m.detailType === 'video') { l.push(line('video', m.detail)); l.push(line('poster', m.poster)); }
@@ -378,7 +385,8 @@
     const chunks = clean.split(/^\s*-{3,}\s*$/m);
     const head = parseChunk(chunks[0]).o;
     const s = JSON.parse(JSON.stringify(DEFAULTS));
-    ['source', 'alt', 'caption', 'credit', 'size', 'marker_size', 'marker_color', 'marker_border', 'marker'].forEach((k) => { if (head[k]) s[k] = head[k]; });
+    ['source', 'alt', 'caption', 'credit', 'size', 'marker_size', 'marker_opacity', 'marker'].forEach((k) => { if (head[k]) s[k] = head[k]; });
+    ['marker_color', 'marker_border'].forEach((k) => { if (/^#[0-9a-f]{6}$/i.test(head[k] || '')) s[k] = head[k]; });
     s.numbered = /^(true|yes)$/i.test(head.numbered || ''); s.pulse = !/^(false|no)$/i.test(head.pulse || ''); s.legend = /^(true|yes)$/i.test(head.legend || '');
     chunks.slice(1).forEach((c) => {
       const { o, body } = parseChunk(c);
