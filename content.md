@@ -238,6 +238,30 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Almost there
 Curabitur aliquet pellentesque diam. Integer quis metus vitae elit lobortis egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel erat non mauris convallis vehicula. Nulla et sapien. Integer tortor tellus, aliquam faucibus, convallis id, congue eu, quam.
 
 ```
+embed: drawpath
+source: scroll-line-map.svg
+alt: A map of the UC Berkeley campus with a route drawn across it
+dot: true
+length: 2.5
+caption: The route draws itself as you scroll, then the map lets go. Made in Illustrator from a map picture and one line.
+credit: Map: Firstname Lastname
+
+---
+at: 20
+position: left
+
+**Lorem ipsum.** The line follows the scroll. Scroll back up and it un-draws.
+
+---
+at: 80
+position: right
+
+Consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+```
+
+Curabitur aliquet pellentesque diam. Integer quis metus vitae elit lobortis egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+```
 embed: image
 size: 130
 source: scrolly/07.jpg
