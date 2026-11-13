@@ -28,6 +28,16 @@ export async function renderOpener(ctx) {
   }
   const solid = !media;
 
+  let audioBtn = '';
+  if (media && VIDEO.test(o.background) && toBool(o.audio, false)) {
+    const pos = ['top-left', 'top-right', 'bottom-center'].includes(String(o.audio_position)) ? o.audio_position : 'bottom-center';
+    const fade = toBool(o.fade_sound_after_scroll, true);
+    audioBtn =
+      `<button type="button" class="opener__audio opener__audio--${pos}${fade ? '' : ' opener__audio--fixed'}" aria-pressed="false" data-fade="${fade}" data-label-on="${escapeHtml(o.audio_label_on || 'Mute')}" data-label-off="${escapeHtml(o.audio_label || 'Click for audio')}">` +
+      `<svg class="opener__audio-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>` +
+      `<svg class="opener__audio-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>` +
+      `<span class="opener__audio-label">${escapeHtml(o.audio_label || 'Click for audio')}</span></button>`;
+  }
   const hide = toBool(o.hide_title, false);
   const scroll = toBool(o.scroll_indicator, true)
     ? `<a class="opener__scroll" href="#story" aria-label="Scroll down to the story">${CHEVRON}</a>`
@@ -39,7 +49,7 @@ export async function renderOpener(ctx) {
     `<div class="opener__content"><div class="opener__inner">\n` +
     `<h1 class="opener__title${hide ? ' visually-hidden' : ''}">${escapeHtml(site.title)}</h1>\n` +
     (site.tagline ? `<p class="opener__tagline">${ctx.renderInline(site.tagline)}</p>\n` : '') +
-    `</div></div>\n${scroll}\n</header>`
+    `</div></div>\n${audioBtn}${scroll}\n</header>`
   );
 }
 

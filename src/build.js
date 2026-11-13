@@ -12,7 +12,7 @@ import { loadFonts } from './lib/fonts.js';
 import { loadEmbeds } from './embeds/index.js';
 import { createMarkdown, renderContent, renderEmbedBlock, markEmbed } from './lib/content.js';
 import { detectEmbedName } from './lib/blocks.js';
-import { errorBox, applyCustomAttrs } from './lib/html.js';
+import { errorBox, applyCustomAttrs, FLOAT_MARK } from './lib/html.js';
 import { cleanAssetPath } from './lib/images.js';
 import { renderOpener, renderPage } from './lib/page.js';
 import { cssVars } from './lib/theme.js';
@@ -94,7 +94,12 @@ export async function build({ root = PROJECT_ROOT, dev = false, clean = false } 
       return this.defer(
         (async () => {
           try {
-            return markEmbed(applyCustomAttrs(await def.render({ options, body, name: def.name }, this), options));
+            let html = await def.render({ options, body, name: def.name }, this);
+            const floated = html.startsWith(FLOAT_MARK);
+            if (floated) html = html.slice(FLOAT_MARK.length);
+            html = applyCustomAttrs(html, options);
+            // Floated embeds stay inside the text run so paragraphs wrap them.
+            return floated ? html : markEmbed(html);
           } catch (err) {
             warn(`The ${def.name} embed failed: ${err.message}`);
             if (dev) console.error(err);
@@ -105,6 +110,25 @@ export async function build({ root = PROJECT_ROOT, dev = false, clean = false } 
     },
     renderEmbedBlock(raw) {
       return renderEmbedBlock(this, raw);
+    },
+    // Renders one embed for use inside another (grid cells). Returns plain
+    // HTML with no markers or placeholders.
+    async renderChild(options, body) {
+      const name = detectEmbedName({ options, body });
+      const def = embeds.get(name);
+      if (!def) {
+        warn(`Unknown embed type "${name}" inside a grid`);
+        return errorBox(`"${name}" is not an embed type this template knows.`);
+      }
+      this.use(def.name);
+      try {
+        let html = await def.render({ options, body, name: def.name }, this);
+        if (html.startsWith(FLOAT_MARK)) html = html.slice(FLOAT_MARK.length);
+        return applyCustomAttrs(html, options);
+      } catch (err) {
+        warn(`The ${def.name} embed inside a grid failed: ${err.message}`);
+        return errorBox(`The ${def.name} embed could not be built: ${err.message}`);
+      }
     },
   };
   ctx.md = createMarkdown(ctx);

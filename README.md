@@ -186,6 +186,10 @@ Open `settings.toml` and change the values on the right of each `=`. Keep text i
 | `height` | `"100vh"` fills the whole screen. `"75vh"` fills three quarters. |
 | `scroll_indicator` | `true` shows the gently bouncing arrow at the bottom. |
 | `scroll_indicator_color` | Color of that arrow. Leave `""` to match the title color. |
+| `audio` | `true` adds a small "Click for audio" button when the background is a video with a sound track. The video still starts silent, because browsers require it; the button turns the sound on. |
+| `audio_position` | `"bottom-center"` (above the arrow, default), `"top-left"` or `"top-right"`. |
+| `audio_label`, `audio_label_on` | The button's text before and after the reader turns the sound on. Defaults "Click for audio" and "Mute". |
+| `fade_sound_after_scroll` | `true` (default) fades the sound out as the reader scrolls past the opener and back in when they return. `false` keeps the sound playing through the whole story, and the button stays on screen so they can mute it at any time. |
 
 ### [text]
 
@@ -245,6 +249,16 @@ Three dashes on their own line make a short horizontal rule, for a section break
 ```
 
 Standard Markdown images (`![description](photo.jpg)`) also work, but the image embed in the next section gives you captions, credits and sizes, so prefer that.
+
+**Tables** work too, and can be wider than the text. Put a line like `{.table-large}` right after the table: `.table-text` (the default), `.table-large`, `.table-full` or a number such as `.table-130` (percent of the text width), the same sizes embeds use. Bootstrap table classes can go in the same braces, for example `{.table-large .table-striped}`.
+
+```
+| Station | Riders |
+|---|---|
+| Lake Merritt | 4,120 |
+| Fruitvale | 3,870 |
+{.table-large .table-striped}
+```
 
 Notes to yourself go between `<!--` and `-->`. They never appear on the website.
 
@@ -351,9 +365,21 @@ size: full
 | `source` | File in `assets/`. Required. |
 | `alt` | A short description of what is in the picture, for people who cannot see it. Please always fill this in. |
 | `link` | Optional web address the picture links to. |
+| `float` | `left` or `right`: the picture sits at the side and the text wraps around it. See below. |
 | `size`, `caption`, `credit`, `id` | As above. |
 
 The template creates several sizes of each picture automatically. Upload the biggest version you have (up to about 2500 pixels wide).
+
+**Text wrapping around a picture.** Add `float: left` or `float: right`, typically for a headshot next to the paragraph about that person. Put the code block right before the paragraphs that should wrap. With `size: text` the picture stays inside the column at about a third of its width; with the default `large` it is a little bigger and, on wide screens, hangs out past the edge of the column while text still wraps; a number sets a custom width as a percentage of the column. On phones a floated picture is never wider than 45 percent of the screen. A caption, if given, sits under the picture at the same width.
+
+````
+embed: image
+source: jane-doe.jpg
+alt: Jane Doe, station manager
+caption: Jane Doe
+float: right
+size: text
+````
 
 ### Video with controls (`video`)
 
@@ -390,7 +416,81 @@ credit: Audio by Jane Doe
 |---|---|
 | `source` | An `.mp3` (or `.m4a`) file in `assets/`. Required. |
 | `title` | A line shown above the player. Optional. |
-| `size` | Defaults to `text`. |
+| `image` + `alt` | A picture shown above the player, with its description. Optional. |
+| `float` | `left` or `right` to let text wrap around the player, as with pictures. |
+| `size` | Defaults to `text`, even with a picture. All the usual sizes work. |
+
+### Slideshow (`slideshow`)
+
+Several photos in one frame with arrows, dots and a caption that changes with each slide. Every slide sits in a box of the same shape, with the photo fitted inside it on a black background, so vertical and horizontal photos never make the page jump.
+
+````
+embed: slideshow
+aspect: 3x2
+caption: The morning after, in pictures.
+
+---
+image: yard-1.jpg
+alt: The empty yard at dawn
+caption: Where the car had been parked.
+credit: Photo by Jane Doe
+
+---
+image: yard-2.jpg
+alt: A worker inspects the track
+caption: The first inspection.
+````
+
+| Option | What it does |
+|---|---|
+| `aspect` | Shape of the frame: `3x2` (default), `16x9`, `4x3`, `1x1` or any `WxH`. |
+| `background` | Color behind photos that do not fill the frame. Default black. |
+| `indicators`, `arrows` | The dots and the arrows. Both on by default; `false` turns one off. |
+| `captions` | `false` hides the per-slide captions. The slideshow's own `caption`/`credit` lines are shown either way. |
+| `counter` | `true` shows "2 / 6" in the corner. Off by default. |
+| `autoplay`, `interval` | `autoplay: true` advances by itself, every `interval` seconds (default 5). Off by default. |
+| `pause_on_hover` | With autoplay, pause while the mouse is over it. On by default. |
+| `fade` | `true` crossfades instead of sliding. |
+| `loop` | `false` stops at the last slide instead of wrapping around. |
+
+Each slide takes `image`, `alt`, `caption` and `credit`. Readers can also swipe on phones and use the arrow keys.
+
+### Side by side (`grid`)
+
+Two, three or four embeds in a row, or a whole wall of them. Each cell is a complete embed, written exactly as it would be on its own, separated by `---` lines. Any embed type can go in a cell.
+
+````
+embed: grid
+columns: 3
+aspect: 3x2
+caption: Six stations, with a sound from each.
+
+---
+embed: audio
+image: lake-merritt.jpg
+alt: Lake Merritt station entrance
+source: lake-merritt.mp3
+caption: Lake Merritt
+
+---
+embed: image
+source: fruitvale.jpg
+alt: Fruitvale platform
+caption: Fruitvale
+
+---
+embed: video
+source: coliseum.mp4
+caption: Coliseum
+````
+
+| Option | What it does |
+|---|---|
+| `columns` | 2 (default), 3 or 4. On phones the grid becomes one column (two for a 4-column grid). |
+| `aspect` | Crops every photo and video in the grid to the same shape, e.g. `3x2` or `1x1`, for a tidy wall. Leave it out to keep each one's own shape. |
+| `gap` | Space between cells, default `1rem`. |
+| `size` | Width of the whole grid, default `large`. `full` works well for big walls. |
+| `caption`, `credit` | A caption for the whole grid; each cell can still have its own. |
 
 ### Photo with hotspots (`hotspots`)
 

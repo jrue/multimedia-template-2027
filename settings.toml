@@ -71,6 +71,17 @@ height = "100vh"
 scroll_indicator = true
 # Leave empty to match the title color.
 scroll_indicator_color = ""
+# Sound for a background video. The video always starts silent (browsers
+# insist); when audio = true a small button lets the reader turn the sound on.
+audio = false
+# Where the button sits: "top-left", "top-right" or "bottom-center" (above the arrow).
+audio_position = "bottom-center"
+audio_label = "Click for audio"
+audio_label_on = "Mute"
+# true: sound fades out when the reader scrolls past the opener and returns
+# when they scroll back. false: the sound keeps playing through the whole
+# story and the button stays on screen so the reader can mute it any time.
+fade_sound_after_scroll = true
 
 [text]
 font = "Fanwood Text"
