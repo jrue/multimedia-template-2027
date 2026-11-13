@@ -20,6 +20,16 @@ credit: Photo by Firstname Lastname
 
 ## Nemo enim ipsam voluptatem
 
+```
+embed: image
+source: scrolly/06.jpg
+alt: A train interior with empty seats
+caption: Firstname Lastname, lorem ipsum consultant. A floated picture, with text wrapping around it.
+credit: Photo by Firstname Lastname
+float: right
+size: text
+```
+
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
 
 Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
@@ -175,10 +185,12 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 
 ```
 embed: audio
-source: breakaway-audio.mp3
+source: lorem-ipsum.mp3
+image: scrolly/04.jpg
+alt: Commuters on a crowded station platform
 title: Lorem ipsum, as told to a reporter
-caption: A short audio clip with the browser's own player.
-credit: Audio by Firstname Lastname
+caption: An audio clip with a picture above the player.
+credit: Audio and photo by Firstname Lastname
 ```
 
 ## Integer vestibulum sapien
@@ -233,6 +245,92 @@ credit: Photo by Firstname Lastname
 ```
 
 Mauris ullamcorper felis vitae erat. Proin feugiat, augue non elementum posuere, metus purus iaculis lectus, et tristique ligula justo vitae magna. Aliquam convallis sollicitudin purus. Praesent aliquam, enim at fermentum mollis, ligula massa adipiscing nisl, ac euismod nibh nisl eu lectus.
+
+```
+embed: slideshow
+aspect: 3x2
+counter: true
+caption: A slideshow: arrows, dots, swipe on phones, and a caption that changes with each slide.
+credit: Photos by Firstname Lastname
+
+---
+image: scrolly/01.jpg
+alt: A train on an elevated track at dusk
+caption: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+---
+image: scrolly/03.jpg
+alt: A typewriter on a wooden desk
+caption: Sed do eiusmod tempor incididunt ut labore.
+
+---
+image: hero.jpg
+alt: Northern lights over a rocky coast
+caption: Ut enim ad minim veniam, quis nostrud exercitation.
+credit: Photo by Someone Else
+
+---
+image: scrolly/07.jpg
+alt: A train crossing a bridge
+```
+
+Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+
+```
+embed: grid
+columns: 3
+aspect: 3x2
+size: large
+caption: A three-by-two grid mixing photos, a video, and photos with audio under them.
+
+---
+embed: image
+source: scrolly/01.jpg
+alt: A train on an elevated track at dusk
+caption: Lorem ipsum
+
+---
+embed: video
+source: hero-loop.mp4
+caption: Dolor sit amet
+
+---
+embed: audio
+source: lorem-ipsum.mp3
+image: scrolly/04.jpg
+alt: Commuters on a crowded station platform
+caption: Consectetur, with sound
+
+---
+embed: image
+source: scrolly/05.jpg
+alt: A desk seen from above
+caption: Adipiscing elit
+
+---
+embed: audio
+source: breakaway-audio.mp3
+image: scrolly/06.jpg
+alt: A train interior with empty seats
+caption: Sed do eiusmod, with sound
+
+---
+embed: image
+source: scrolly/07.jpg
+alt: A train crossing a bridge
+caption: Tempor incididunt
+```
+
+Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. A table that is wider than the text, using `{.table-large .table-striped}` on the line after it:
+
+| Station | Lorem | Ipsum | Dolor | Sit | Amet |
+|---|---|---|---|---|---|
+| Lake Merritt | 4,120 | 3,870 | 2,210 | 1,990 | 880 |
+| Fruitvale | 3,870 | 3,100 | 2,050 | 1,720 | 760 |
+| Coliseum | 2,980 | 2,640 | 1,900 | 1,410 | 590 |
+{.table-large .table-striped}
+
+Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
 
 ```
 embed: storymap

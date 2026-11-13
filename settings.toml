@@ -38,11 +38,11 @@ footer = "Produced for the UC Berkeley School of Journalism."
 # The full-screen image or video behind the title. Use a .jpg/.png for an
 # image or an .mp4 for a short, silent, looping video. Leave it empty for a
 # solid block of screen_color.
-background = "hero.jpg"
+background = "hero-loop.mp4"
 # background = "hero.jpg"
 # background = "hero-loop.mp4"
 # Still image shown while a background video loads (strongly recommended for video).
-poster = ""
+poster = "hero.jpg"
 # Which part of the image stays visible when the screen is narrow:
 # "center", "top", "bottom", "left", "right", or e.g. "30% 60%".
 background_position = "center"
@@ -73,7 +73,7 @@ scroll_indicator = true
 scroll_indicator_color = ""
 # Sound for a background video. The video always starts silent (browsers
 # insist); when audio = true a small button lets the reader turn the sound on.
-audio = false
+audio = true
 # Where the button sits: "top-left", "top-right" or "bottom-center" (above the arrow).
 audio_position = "bottom-center"
 audio_label = "Click for audio"
