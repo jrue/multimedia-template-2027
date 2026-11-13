@@ -12,6 +12,8 @@ Students who want a more seamless editing experience can open this project in Gi
 
 The live website only updates whenever a commit is made. Students can view the process under the **Actions** tab.
 
+**See it in action:** the demo story at [jrue.github.io/multimedia-template-2027](https://jrue.github.io/multimedia-template-2027/) uses every kind of embed. Its files live on the [demo branch](https://github.com/jrue/multimedia-template-2027/tree/demo) of this repository: open [content.md there](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) to see how each embed is written, and copy whatever you need. Your own copy of the template starts blank.
+
 ---
 
 ## Contents
@@ -167,7 +169,7 @@ Open `settings.toml` and change the values on the right of each `=`. Keep text i
 
 | Setting | What it does |
 |---|---|
-| `background` | File name of the hero image (`.jpg`, `.png`) **or** a short silent video (`.mp4`). The template looks at the file extension to decide which. |
+| `background` | File name of the hero image (`.jpg`, `.png`) **or** a short silent video (`.mp4`). The template looks at the file extension to decide which. Leave it empty for a solid block of `screen_color` behind the title. |
 | `poster` | A still image shown while a background video loads, and on phones that block video. Strongly recommended when `background` is a video. |
 | `background_position` | Which part of the picture to keep when the screen is narrow: `"center"`, `"top"`, `"bottom"`, `"left"`, `"right"`, or a pair like `"30% 60%"`. |
 | `screen_color` | Color of the tinted layer between the image and the text, e.g. `"#000000"`. |
@@ -304,7 +306,7 @@ On phones every size becomes edge to edge, with the text keeping a small margin.
 
 ## 5. Every embed type
 
-The sample `content.md` contains a working example of each of these. Copy, paste, and change the file names.
+The [demo branch's content.md](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) contains a working example of each of these. Copy, paste, and change the file names.
 
 ### Embed code from another website (`html`)
 
@@ -420,7 +422,7 @@ Then anywhere in your text you can also write `[watch the video](#modal:breakawa
 Two ways to supply the data:
 
 - **Google Sheet (easiest).** Make your timeline with the [TimelineJS Google Sheet template](https://timeline.knightlab.com/#make): fill in the sheet, then choose **File > Share > Publish to web** and click **Publish**. Paste the sheet's normal web address (the one in your browser's address bar) as `source`. The timeline is then read live from Google every time someone views the story, so the sheet must stay published.
-- **JSON file (fully self-contained).** Write the events in a `.json` file in `assets/`, following the sample `assets/timeline.json` and the [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). Nothing outside your repository is needed.
+- **JSON file (fully self-contained).** Write the events in a `.json` file in `assets/`, following the demo's [timeline.json](https://github.com/jrue/multimedia-template-2027/blob/demo/assets/timeline.json) and the [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). Nothing outside your repository is needed.
 
 ````
 embed: timeline
@@ -466,7 +468,7 @@ credit: Photos: BART archive, Jane Doe
 1. Build your map in the [StoryMapJS authoring tool](https://storymap.knightlab.com/) and click **Publish changes**.
 2. Click **Share** and copy the share link. It looks like `https://uploads.knightlab.com/storymapjs/LONG-ID/your-map-name/index.html`.
 3. Change `index.html` at the end of that link to `published.json`, open the new link in your browser, and save the page as `storymap.json` (File > Save Page As). Put it in `assets/`.
-4. Images inside that file still point to Knight Lab's servers. For a fully self-contained story, upload the pictures to `assets/` and change the `url` values in the JSON to `assets/filename.jpg`. The sample `assets/storymap.json` shows the format.
+4. Images inside that file still point to Knight Lab's servers. For a fully self-contained story, upload the pictures to `assets/` and change the `url` values in the JSON to `assets/filename.jpg`. The demo's [storymap.json](https://github.com/jrue/multimedia-template-2027/blob/demo/assets/storymap.json) shows the format.
 
 ````
 embed: storymap
@@ -835,6 +837,10 @@ What `render()` receives:
   - `splitSteps(body)` from `lib/blocks.js` splits a body on `---` lines for multi-step embeds
 
 Run `npm start`, add the block to `content.md`, and watch the preview.
+
+### Branches of the template repository
+
+`main` is the blank starting point that "Use this template" copies. `demo` holds the sample story (content.md, settings.toml and the assets folder) and nothing else of its own. The workflow tells the two apart: in a student's copy it builds and publishes `main`; in the template repository it skips `main`, merges `main` into `demo` on every push so the demo picks up new features, and publishes `demo` to the template's own Pages site. To change the demo story, commit on the `demo` branch. To add a feature, commit on `main` and the demo follows. If a merge ever conflicts (only possible when the same lines of settings.toml change on both branches), the demo job fails and you resolve it locally with `git checkout demo && git merge main`.
 
 ### GitHub Actions
 

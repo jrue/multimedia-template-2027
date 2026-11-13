@@ -25,9 +25,8 @@ export async function renderOpener(ctx) {
     const data = await imageData(ctx, o.background, { widths: [768, 1280, 1920, 2560] });
     ctx.shareImage = ctx.shareImage || data.largest || data.src;
     media = `<img class="opener__image" src="${escapeHtml(data.src)}"${data.srcset ? ` srcset="${escapeHtml(data.srcset)}" sizes="100vw"` : ''} alt="" fetchpriority="high" decoding="async">`;
-  } else {
-    ctx.warn('[opener] background is empty, so the opener will only show the screen color.');
   }
+  const solid = !media;
 
   const hide = toBool(o.hide_title, false);
   const scroll = toBool(o.scroll_indicator, true)
@@ -35,9 +34,8 @@ export async function renderOpener(ctx) {
     : '';
 
   return (
-    `<header class="opener" data-align="${escapeHtml(o.align)}">\n` +
-    `<div class="opener__media">${media}</div>\n` +
-    `<div class="opener__screen"></div>\n` +
+    `<header class="opener${solid ? ' opener--solid' : ''}" data-align="${escapeHtml(o.align)}">\n` +
+    (solid ? '' : `<div class="opener__media">${media}</div>\n<div class="opener__screen"></div>\n`) +
     `<div class="opener__content"><div class="opener__inner">\n` +
     `<h1 class="opener__title${hide ? ' visually-hidden' : ''}">${escapeHtml(site.title)}</h1>\n` +
     (site.tagline ? `<p class="opener__tagline">${ctx.renderInline(site.tagline)}</p>\n` : '') +

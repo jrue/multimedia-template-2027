@@ -37,6 +37,7 @@ export function cssVars(ctx) {
     'page-gutter': '1rem',
     'opener-height': cssSize(o.height, '100vh'),
     'opener-screen': hexToRgba(o.screen_color, o.screen_opacity),
+    'opener-solid': o.screen_color || '#000000',
     'opener-title-font': o.title_font ? fonts.stack(o.title_font, '[opener] title_font') : headingFont,
     'opener-title-size': cssSize(o.title_size, '5rem'),
     'opener-title-weight': o.title_weight || 700,

@@ -47,6 +47,9 @@ h1, h2, h3, h4, h5, h6 {
   object-position: var(--opener-bg-position);
 }
 .opener__screen { position: absolute; inset: 0; background: var(--opener-screen); }
+/* No background image or video: a solid block of screen_color. */
+.opener--solid { background: var(--opener-solid); }
+.opener--solid .opener__title, .opener--solid .opener__tagline { text-shadow: none; }
 .opener__content {
   position: relative;
   z-index: 1;
