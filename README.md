@@ -743,6 +743,46 @@ ffmpeg -i original.mp4 -an -vf scale=1280:-2 -c:v libx264 -crf 23 -g 4 -keyint_m
 
 `frames` mode needs `ffmpeg` on the computer that builds the site. GitHub's build machines have it. Your own computer may not.
 
+### Line drawn on scroll (`drawpath`)
+
+An SVG with a line over a picture, typically a route on a map. The map sticks to the screen while the reader scrolls and the line draws itself from start to end; scrolling back up un-draws it.
+
+````
+embed: drawpath
+source: campus-route.svg
+alt: The route of the runaway car across campus
+dot: true
+caption: Follow the line as you scroll.
+````
+
+**Making the SVG in Illustrator**
+
+1. Place the map picture and draw the route with the Pen tool as one line. Where you click first is where the drawing starts; use `reverse: true` if it should go the other way.
+2. **File > Export > Export As…**, choose SVG. In the options: Styling **Style attributes**, Images **Link** (or Embed), and tick **Responsive**.
+3. Upload the `.svg` to `assets/`. With Images set to Link, upload the map picture too, with the same name Illustrator used, in the same folder.
+
+Rules of the road:
+
+- The line cannot be a dashed style; the drawing effect is itself a dash pattern, so dashes are replaced by a solid line.
+- Every shape with a stroke in the file is drawn. Several lines draw together, or one after another with `sequence: true`.
+- Keep the map picture around 1200 to 1600 pixels wide. It is used as it is, without the automatic resizing photos get.
+- If the file contains text, it is not drawn, just shown.
+
+| Option | What it does |
+|---|---|
+| `source` | The `.svg` in `assets/`. Required (or paste the `<svg>` code below the options instead). |
+| `alt` | A description of the picture and the route. |
+| `length` | How far the reader scrolls while the line draws, in screen heights. Default `2`. |
+| `deadzone` | Percent of that scrolling kept still at each end, so the map is in place before drawing starts and complete before it leaves. Default `10`. |
+| `reverse` | `true` draws from the end of the line to its start. |
+| `sequence` | `true` draws the shapes one after another instead of together. |
+| `dot`, `dot_color`, `dot_size` | `dot: true` adds a dot that travels along the tip of the line. Color and size (in the SVG's units) are optional; the dot matches the line by default. |
+| `background` | Color around the picture while it is stuck to the screen. Default: the page background. |
+| `size` | Defaults to `full`. `large` and `text` also work: the map then stays inside that width, centered on the screen. |
+| `position`, `card_background`, `card_color`, `card_width` | For text cards, as in the scroll video. |
+
+Text cards work exactly as in the scroll video: add `---` steps with `at: 40` and the card text below the options. Readers who have asked their device to reduce motion see the finished line straight away.
+
 ---
 
 ## 6. Photos and video: sizes and limits
