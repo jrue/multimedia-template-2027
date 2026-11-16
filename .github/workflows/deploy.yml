@@ -57,8 +57,9 @@ jobs:
       # future builds.
       - name: Save the downloaded Google Doc copy
         run: |
-          git add --all content.remote.md assets/pasted 2>/dev/null || true
-          if [ -n "$(git status --porcelain content.remote.md assets/pasted)" ]; then
+          if [ -f content.remote.md ]; then git add content.remote.md; fi
+          if [ -d assets/pasted ]; then git add --all assets/pasted; fi
+          if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git commit -m "Update story from Google Doc"
