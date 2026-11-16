@@ -12,7 +12,7 @@ Students who want a more seamless editing experience can open this project in Gi
 
 The live website only updates whenever a commit is made. Students can view the process under the **Actions** tab.
 
-**See it in action:** the demo story at [jrue.github.io/multimedia-template-2027](https://jrue.github.io/multimedia-template-2027/) uses every kind of embed. Its files live on the [demo branch](https://github.com/jrue/multimedia-template-2027/tree/demo) of this repository: open [content.md there](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) to see how each embed is written, and copy whatever you need. Your own copy of the template starts blank.
+**See it in action:** the demo story at [jrue.github.io/multimedia-template-2027](https://jrue.github.io/multimedia-template-2027/) uses every kind of embed. (Its files live on the [demo branch](https://github.com/jrue/multimedia-template-2027/tree/demo) of this repository.) For examples of every possible embed, open [content.md on the demo branch](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) to see how each embed is written, and copy whatever you need. Your own copy of the template starts blank.
 
 ---
 
@@ -591,10 +591,10 @@ Then anywhere in your text you can also write `[watch the video](#modal:breakawa
 
 ### Timeline (`timeline`, TimelineJS)
 
-Two ways to supply the data:
+Make your timeline with the [TimelineJS Creation Tool](https://timeline.knightlab.com/ng/) and click "New Timeline." Instead of creating an account and having Northwestern host the timeline, you can click the "Share" button and download your timeline data as a `.json` file. Save this JSON file in `assets/`. This data file can be edited directly (though not recommended) and more information about the different parameters are here: [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). 
 
-- **Google Sheet (easiest).** Make your timeline with the [TimelineJS Google Sheet template](https://timeline.knightlab.com/#make): fill in the sheet, then choose **File > Share > Publish to web** and click **Publish**. Paste the sheet's normal web address (the one in your browser's address bar) as `source`. The timeline is then read live from Google every time someone views the story, so the sheet must stay published.
-- **JSON file (fully self-contained).** Write the events in a `.json` file in `assets/`, following the demo's [timeline.json](https://github.com/jrue/multimedia-template-2027/blob/demo/assets/timeline.json) and the [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). Nothing outside your repository is needed.
+If you want Northwestern to host it, instead get the embed code and use the standard [Embed code from another website](#embed-code-from-another-website-html)
+
 
 ````
 embed: timeline
