@@ -12,7 +12,7 @@ Students who want a more seamless editing experience can open this project in Gi
 
 The live website only updates whenever a commit is made. Students can view the process under the **Actions** tab.
 
-**See it in action:** the demo story at [jrue.github.io/multimedia-template-2027](https://jrue.github.io/multimedia-template-2027/) uses every kind of embed. Its files live on the [demo branch](https://github.com/jrue/multimedia-template-2027/tree/demo) of this repository: open [content.md there](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) to see how each embed is written, and copy whatever you need. Your own copy of the template starts blank.
+**See it in action:** the demo story at [jrue.github.io/multimedia-template-2027](https://jrue.github.io/multimedia-template-2027/) uses every kind of embed. (Its files live on the [demo branch](https://github.com/jrue/multimedia-template-2027/tree/demo) of this repository.) For examples of every possible embed, open [content.md on the demo branch](https://github.com/jrue/multimedia-template-2027/blob/demo/content.md) to see how each embed is written, and copy whatever you need. Your own copy of the template starts blank.
 
 ---
 
@@ -342,7 +342,7 @@ caption: Interview with the station manager.
 
 | Option | What it does |
 |---|---|
-| `resize` | By default a pasted iframe is stretched to the embed's width, keeping its proportions. `resize: false` (or `resize: no`) keeps the exact width and height from the pasted code instead. |
+| `resize` | By default a pasted iframe is stretched to the embed's width, keeping its proportions when the code gives pixel sizes (a `width="100%"` player such as SoundCloud or Spotify simply fills the width at its own height). `resize: false` (or `resize: no`) switches all of that off and shows the code exactly as the service wrote it. The same option works inside pop-ups. |
 | `lock_scroll` | `true` makes the frame ignore the mouse until the reader clicks it, so scrolling the page over a map or chart no longer zooms or pans the map instead. A "Click to interact" hint appears on hover; moving the mouse away locks it again. Recommended for Google Maps. |
 | `aspect` | Shape of the box the embed scales inside: `16x9`, `4x3`, `1x1`, `21x9` or any `WxH` like `3x2`. You rarely need it: YouTube and Vimeo get `16x9`, and an iframe with `width="640" height="480"` attributes (Google My Maps, Google Forms) keeps those proportions automatically. Use `aspect: none` to leave the embed code exactly as pasted. |
 
@@ -588,13 +588,14 @@ Then anywhere in your text you can also write `[watch the video](#modal:breakawa
 | (body) | Instead of `video`, `audio` or `image`, paste embed code (e.g. a YouTube iframe) below the options, or just write text (Markdown works). Embed code is loaded only when the pop-up opens and unloaded when it closes. |
 | `width` | `large` (default), `xl`, or `fullscreen`. |
 | `autoplay` | `false` to make the viewer press play. |
+| `resize`, `aspect` | For pasted embed code inside the pop-up, as for html embeds. |
 
 ### Timeline (`timeline`, TimelineJS)
 
-Two ways to supply the data:
+Make your timeline with the [TimelineJS Creation Tool](https://timeline.knightlab.com/ng/) and click "New Timeline." Instead of creating an account and having Northwestern host the timeline, you can click the "Share" button and download your timeline data as a `.json` file. Save this JSON file in `assets/`. This data file can be edited directly (though not recommended) and more information about the different parameters are here: [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). 
 
-- **Google Sheet (easiest).** Make your timeline with the [TimelineJS Google Sheet template](https://timeline.knightlab.com/#make): fill in the sheet, then choose **File > Share > Publish to web** and click **Publish**. Paste the sheet's normal web address (the one in your browser's address bar) as `source`. The timeline is then read live from Google every time someone views the story, so the sheet must stay published.
-- **JSON file (fully self-contained).** Write the events in a `.json` file in `assets/`, following the demo's [timeline.json](https://github.com/jrue/multimedia-template-2027/blob/demo/assets/timeline.json) and the [TimelineJS JSON format](https://timeline.knightlab.com/docs/json-format.html). Nothing outside your repository is needed.
+If you want Northwestern to host it, instead get the embed code and use the standard [Embed code from another website](#embed-code-from-another-website-html)
+
 
 ````
 embed: timeline
