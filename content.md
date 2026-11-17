@@ -361,6 +361,7 @@ Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque i
 ```
 embed: storymap
 source: storymap.json
+media: scrolly/
 height: 600
 caption: Lorem ipsum dolor sit amet: a map of consectetur adipiscing elit.
 credit: Map: Firstname Lastname
