@@ -76,7 +76,7 @@ export default {
         ctx.use('modal');
         const detailBody = mbody && !mbody.startsWith('<') ? `<div class="story-modal__text">${ctx.renderMarkdown(mbody)}</div>` : mbody;
         const html = await modalDef.render(
-          { options: { id, title: m.modal_title || title, video: m.video, poster: m.poster, audio: m.audio, image: m.image, alt: m.alt || title, width: m.width, autoplay: m.autoplay, aspect: m.aspect }, body: detailBody },
+          { options: { id, title: m.modal_title || title, video: m.video, poster: m.poster, audio: m.audio, image: m.image, alt: m.alt || title, width: m.width, autoplay: m.autoplay, aspect: m.aspect, resize: m.resize }, body: detailBody },
           ctx
         );
         modals.push(html);

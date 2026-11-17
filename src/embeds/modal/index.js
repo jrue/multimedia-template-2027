@@ -5,13 +5,14 @@
 //
 // Options: id (required for links), label (button text; leave out for no button),
 //          title, video, poster, audio, image, alt, width (default | large | xl | fullscreen),
-//          autoplay (default: true for video), aspect (e.g. 16x9, 4x3; detected automatically)
+//          autoplay (default: true for video), aspect (e.g. 16x9, 4x3; detected automatically),
+//          resize (false keeps pasted embed code exactly as it is)
 // Body: optional HTML (an iframe, for example)
 import { escapeHtml, toBool, slugify, straightQuotes } from '../../lib/util.js';
 import { imageTag, imageData } from '../../lib/images.js';
 import { filterScripts, deferIframes } from '../../lib/scripts.js';
 import { errorBox } from '../../lib/html.js';
-import { aspectWrap } from '../html/index.js';
+import { aspectWrap, autoAspect } from '../html/index.js';
 import { videoAspect } from '../../lib/frames.js';
 
 const WIDTHS = { default: '', large: 'modal-lg', lg: 'modal-lg', xl: 'modal-xl', fullscreen: 'modal-fullscreen' };
@@ -38,7 +39,8 @@ export default {
       // Plain text (Markdown) inside the pop-up.
       content = `<div class="story-modal__text">${ctx.renderMarkdown(body)}</div>`;
     } else if (body.trim()) {
-      content = aspectWrap(deferIframes(filterScripts(straightQuotes(body), ctx)), o.aspect || (/<iframe/i.test(body) ? '16x9' : ''));
+      const html = deferIframes(filterScripts(straightQuotes(body), ctx));
+      content = toBool(o.resize, true) ? aspectWrap(html, o.aspect || autoAspect(html)) : html;
     } else {
       return errorBox('A modal needs a "video:", "audio:", "image:", embed code, or text below the options.');
     }
