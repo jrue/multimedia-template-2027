@@ -638,24 +638,30 @@ credit: Photos: BART archive, Jane Doe
 
 ### Story map (`storymap`, StoryMapJS)
 
-1. Build your map in the [StoryMapJS authoring tool](https://storymap.knightlab.com/) and click **Publish changes**.
+1. Build your map in the [StoryMapJS authoring tool](https://storymap.knightlab.com/), uploading your pictures as you go, and click **Publish changes**.
 2. Click **Share** and copy the share link. It looks like `https://uploads.knightlab.com/storymapjs/LONG-ID/your-map-name/index.html`.
-3. Change `index.html` at the end of that link to `published.json`, open the new link in your browser, and save the page as `storymap.json` (File > Save Page As). Put it in `assets/`.
-4. Images inside that file still point to Knight Lab's servers. For a fully self-contained story, upload the pictures to `assets/` and change the `url` values in the JSON to `assets/filename.jpg`. The demo's [storymap.json](https://github.com/jrue/multimedia-template-2027/blob/demo/assets/storymap.json) shows the format.
+3. Change `index.html` at the end of that link to `published.json`, open the new link in your browser, and save the page (File > Save Page As). Make a folder called `storymap` inside `assets/` and put the file there.
+4. Put the same pictures you uploaded to the tool in that `storymap` folder too, with the same file names. The build matches them up by name, so the finished story serves your pictures from your own site instead of Knight Lab's servers.
 
 ````
 embed: storymap
-source: storymap.json
+source: storymap/published.json
+media: storymap/
 height: 600
 caption: Every stop on the runaway car's route.
 ````
 
 | Option | What it does |
 |---|---|
-| `source` | A `.json` file in `assets/`. Required. |
+| `source` | The `published.json` file, saved inside `assets/`. Required. |
+| `media` | The folder inside `assets/` that holds your pictures. Every picture in the JSON is pointed at the file of the same name in that folder. Leave it out to keep loading the pictures from Knight Lab. |
 | `height` | Height in pixels. Default `650`. |
 
-Map tiles are loaded from OpenStreetMap while the reader views the page; everything else is served from your site. Images referenced inside the JSON should be written as `assets/filename.jpg`.
+Some things to know:
+
+- If a picture named in the JSON is not in the `media` folder, the build warns you and keeps Knight Lab's copy of that one picture. Links to YouTube, Vimeo and other sites are never changed.
+- If you forget the `source` line, the block is skipped. If you paste the `<iframe>` code from the tool's **Share** box instead of saving the JSON, it works like any other embed code, but your map then lives on Knight Lab's servers rather than in your repository.
+- Map tiles are loaded from OpenStreetMap while the reader views the page; everything else is served from your site.
 
 ### Scroll stepper (`scrolly`)
 
