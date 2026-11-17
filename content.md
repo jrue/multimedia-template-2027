@@ -41,6 +41,12 @@ size: large
 <iframe title="Example chart" aria-label="Interactive chart" id="datawrapper-chart-t4fiQ" src="https://datawrapper.dwcdn.net/t4fiQ/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="400" data-external="1"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(a){if(void 0!==a.data["datawrapper-height"]){var e=document.querySelectorAll("iframe");for(var t in a.data["datawrapper-height"])for(var r=0;r<e.length;r++)if(e[r].contentWindow===a.source){var i=a.data["datawrapper-height"][t]+"px";e[r].style.height=i}}}))}();</script>
 ```
 
+```
+size: text
+caption: An embedded SoundCloud player. Its code asks for the full width and a fixed height, which is kept.
+<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2433621762&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/kaiwachi" title="KAI WACHI" target="_blank" style="color: #cccccc; text-decoration: none;">KAI WACHI</a> · <a href="https://soundcloud.com/kaiwachi/timbaland-bounce-kai-wachi" title="TIMBALAND - BOUNCE (KAI WACHI FLIP) FREE DL" target="_blank" style="color: #cccccc; text-decoration: none;">TIMBALAND - BOUNCE (KAI WACHI FLIP) FREE DL</a></div>
+```
+
 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
 
 > Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
