@@ -342,7 +342,7 @@ caption: Interview with the station manager.
 
 | Option | What it does |
 |---|---|
-| `resize` | By default a pasted iframe is stretched to the embed's width, keeping its proportions. `resize: false` (or `resize: no`) keeps the exact width and height from the pasted code instead. |
+| `resize` | By default a pasted iframe is stretched to the embed's width, keeping its proportions when the code gives pixel sizes (a `width="100%"` player such as SoundCloud or Spotify simply fills the width at its own height). `resize: false` (or `resize: no`) switches all of that off and shows the code exactly as the service wrote it. The same option works inside pop-ups. |
 | `lock_scroll` | `true` makes the frame ignore the mouse until the reader clicks it, so scrolling the page over a map or chart no longer zooms or pans the map instead. A "Click to interact" hint appears on hover; moving the mouse away locks it again. Recommended for Google Maps. |
 | `aspect` | Shape of the box the embed scales inside: `16x9`, `4x3`, `1x1`, `21x9` or any `WxH` like `3x2`. You rarely need it: YouTube and Vimeo get `16x9`, and an iframe with `width="640" height="480"` attributes (Google My Maps, Google Forms) keeps those proportions automatically. Use `aspect: none` to leave the embed code exactly as pasted. |
 
@@ -588,6 +588,7 @@ Then anywhere in your text you can also write `[watch the video](#modal:breakawa
 | (body) | Instead of `video`, `audio` or `image`, paste embed code (e.g. a YouTube iframe) below the options, or just write text (Markdown works). Embed code is loaded only when the pop-up opens and unloaded when it closes. |
 | `width` | `large` (default), `xl`, or `fullscreen`. |
 | `autoplay` | `false` to make the viewer press play. |
+| `resize`, `aspect` | For pasted embed code inside the pop-up, as for html embeds. |
 
 ### Timeline (`timeline`, TimelineJS)
 

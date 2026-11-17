@@ -33,10 +33,18 @@ export function detectAspect(html) {
   if (!m) return '';
   const tag = m[0];
   if (/\bstyle\s*=\s*["'][^"']*\bwidth\s*:/i.test(tag)) return '';
-  const w = tag.match(/\bwidth\s*=\s*["']?(\d+)(px)?["']?/i);
-  const h = tag.match(/\bheight\s*=\s*["']?(\d+)(px)?["']?/i);
+  // Only pixel sizes count. width="100%" (SoundCloud, Spotify...) means
+  // "fill the space, keep the given height", so no box is needed.
+  const w = tag.match(/\bwidth\s*=\s*["']?(\d+)(?:px)?["'\s>]/i);
+  const h = tag.match(/\bheight\s*=\s*["']?(\d+)(?:px)?["'\s>]/i);
   if (!w || !h) return '';
   return `${w[1]}x${h[1]}`;
+}
+
+// The shape to use for pasted code when none is given: 16x9 for video
+// players, the iframe's own pixel proportions when it has them, else none.
+export function autoAspect(html) {
+  return NEEDS_RATIO.test(html) ? '16x9' : detectAspect(html);
 }
 
 export default {
@@ -48,7 +56,7 @@ export default {
     let html = filterScripts(straightQuotes(body), ctx);
     // resize: false (or no / off / 0) keeps the pasted code at its own size.
     const resize = toBool(o.resize, true);
-    const aspect = resize ? o.aspect || (NEEDS_RATIO.test(html) ? '16x9' : detectAspect(html)) : '';
+    const aspect = resize ? o.aspect || autoAspect(html) : '';
     html = aspectWrap(html, aspect);
     const lock = toBool(o.lock_scroll, false) || /^lock$/i.test(o.scroll || '');
     if (lock) html += `<button type="button" class="story-lock__hint" aria-label="Click to interact with this embed">Click to interact</button>`;
