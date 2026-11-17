@@ -222,6 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .story-embed__caption a { color: inherit; }
 .story-embed__credit { opacity: 0.8; white-space: nowrap; }
+/* A floated picture is narrow on phones, so its credit must be allowed to wrap. */
+.story-embed--float .story-embed__credit { white-space: normal; }
 .story-embed__credit::before { content: ""; display: inline-block; width: 0.5em; }
 .story-embed__caption-text + .story-embed__credit::before { content: "\00b7"; width: auto; margin-inline: 0.4em; }
 
