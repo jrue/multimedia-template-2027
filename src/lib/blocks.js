@@ -54,7 +54,13 @@ export function parseSize(value, fallback = 'large') {
 
 export function detectEmbedName(block) {
   const o = block.options;
-  if (o.embed) return String(o.embed).toLowerCase().trim();
+  if (o.embed) {
+    const name = String(o.embed).toLowerCase().trim();
+    // "embed: storymap" with Knight Lab's <iframe> code pasted in and no
+    // source: file is just embed code, so show it like any other.
+    if ((name === 'storymap' || name === 'storymapjs') && !(o.source || o.src || o.file) && block.body.trim().startsWith('<')) return 'html';
+    return name;
+  }
   if (o.type) return String(o.type).toLowerCase().trim();
   if (block.body.trim()) return 'html';
   if (o.source || o.src || o.file) return 'image';
